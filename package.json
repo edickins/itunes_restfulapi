@@ -1,0 +1,23 @@
+{
+  "name": "itunes_restful_api",
+  "version": "1.0.0",
+  "description": "express restfulAPI that facilitates converting an uploaded iTunes .xml library into a mongodb data store and then provides access to that data via an API",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "g:/git_repositories/itunes_restful_api.git"
+  },
+  "author": "ecdickins",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
