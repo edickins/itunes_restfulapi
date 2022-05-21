@@ -1,6 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
+// get routes
+const library = require('./routes/library');
+const playlists = require('./routes/playlists');
+const artists = require('./routes/artists');
+const songs = require('./routes/songs');
+const albums = require('./routes/albums');
+
 //LOAD env VARS
 dotenv.config({ path: './config/config.env' });
 
@@ -12,33 +19,11 @@ app.get('/', (req, res) => {
   res.send(`hello from express`);
 });
 
-app.get('/api/v1/library', (req, res) => {
-  res.status(200).send(`get iTunes library`);
-});
-
-app.post('/api/v1/library', (req, res) => {
-  res.status(201).send(`library added`);
-});
-
-app.get('/api/v1/playlists', (req, res) => {
-  res.status(200).send(`get all playlists`);
-});
-
-app.get('/api/v1/playlist/:id', (req, res) => {
-  res.status(200).send(`get playlist with id ${req.params.id}`);
-});
-
-app.get('/api/v1/artist/:id', (req, res) => {
-  res.status(200).send(`get artist with id ${req.params.id}`);
-});
-
-app.get('/api/v1/song/:id', (req, res) => {
-  res.status(200).send(`get song with id ${req.params.id}`);
-});
-
-app.get('/api/v1/album/:id', (req, res) => {
-  res.status(200).send(`get album with id ${req.params.id}`);
-});
+app.use('/api/v1/library', library);
+app.use('/api/v1/playlists', playlists);
+app.use('/api/v1/artists', artists);
+app.use('/api/v1/songs', songs);
+app.use('/api/v1/albums', albums);
 
 const server = app.listen(PORT, () => {
   console.log(`server running in ${process.env.NODE_ENV} on port ${PORT}`);
