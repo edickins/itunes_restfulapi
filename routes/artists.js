@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const { getArtist, getArtists } = require('../controllers/artists');
 
-router.route('/').get((req, res) => {
-  res.status(200).json({ success: true, msg: `get all artists` });
-});
+router.route('/').get(getArtists);
 
-router.route('/:id').get((req, res) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `get artist with id ${req.params.id}` });
-});
+router.route('/:id').get(getArtist);
 
 module.exports = router;

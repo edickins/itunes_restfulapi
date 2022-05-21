@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const { getPlaylists, getPlaylist } = require('../controllers/playlists');
 
-router.route('/').get((req, res) => {
-  res.status(200).json({ success: true, msg: `get all playlists` });
-});
+router.route('/').get(getPlaylists);
 
-router.route('/:id').get((req, res) => {
-  res
-    .status(200)
-    .json({ success: true, msg: `get playlist with id ${req.params.id}` });
-});
+router.route('/:id').get(getPlaylist);
 
 module.exports = router;
