@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 // get routes
 const library = require('./routes/library');
@@ -19,9 +20,15 @@ const app = express();
 app.use(require('body-parser').urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-  res.send(`hello from express`);
+  res.send(`itunes library`);
 });
 
+// DEV logging middleware
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+
+// Mount routes
 app.use('/api/v1/library', library);
 app.use('/api/v1/playlists', playlists);
 app.use('/api/v1/artists', artists);
