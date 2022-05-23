@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
+// Parse JSON bodies for this app. Make sure you put
+app.use(require('body-parser').urlencoded({ extended: false }));
+
 app.get('/', (req, res) => {
   res.send(`hello from express`);
 });
