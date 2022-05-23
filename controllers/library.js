@@ -11,7 +11,7 @@ exports.getLibrary = (req, res, next) => {
 // @route POST /api/v1/library
 // @token Private
 exports.createLibrary = (req, res, next) => {
-  const form = new formidable.IncomingForm();
+  const form = formidable({});
   // Parse `req` and upload all associated files
   form.parse(req, (err, fields, files) => {
     if (err != null) {
@@ -23,6 +23,7 @@ exports.createLibrary = (req, res, next) => {
       success: true,
       msg: `library created`,
       files: files,
+      fields: fields,
     });
   });
 };
