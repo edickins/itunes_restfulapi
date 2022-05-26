@@ -13,7 +13,12 @@
   },
   "author": "ecdickins",
   "license": "MIT",
+  "engines": {
+    "node": ">=15.14.0",
+    "npm": "<=7.7.6"
+  },
   "dependencies": {
+    "@johnpaulvaughan/itunes-music-library-tracks": "^1.1.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "formidable": "^2.0.1",

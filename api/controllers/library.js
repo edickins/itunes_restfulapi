@@ -20,6 +20,24 @@ exports.createLibrary = (req, res, next) => {
       return res.status(400).json({ message: err.message });
     }
 
+    let getItunesPlaylists =
+      require('@johnpaulvaughan/itunes-music-library-tracks').getItunesPlaylists;
+    let validXMLpath = files.library.filepath;
+
+    let trackStream = getItunesPlaylists(validXMLpath);
+
+    trackStream.on('data', function (track) {
+      console.log(JSON.parse(track));
+    });
+
+    trackStream.on('error', function (err) {
+      console.log(err);
+    });
+
+    trackStream.on('end', () => {
+      console.log('finished parsing xml stream');
+    });
+
     // files has this format
     /*
     "files": {
