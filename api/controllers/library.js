@@ -1,4 +1,5 @@
 const formidable = require('formidable');
+const iTunesLibrary = require('../modules/loaders/itunesPlaylistGenerator.js');
 
 // @desc GET the entire library
 // @route GET /api/v1/library
@@ -38,6 +39,7 @@ exports.createLibrary = (req, res, next) => {
     res.json({
       success: true,
       msg: `library created`,
+      files: files,
     });
   });
 };

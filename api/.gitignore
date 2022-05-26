@@ -6,6 +6,8 @@
 ### dotenv ###
 .env
 
+uploads
+
 ### Node ###
 # Logs
 logs
