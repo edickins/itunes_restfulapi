@@ -1,5 +1,7 @@
 const formidable = require('formidable');
 const iTunesLibrary = require('../modules/loaders/itunesPlaylistGenerator.js');
+const fs = require('fs-extra');
+const camelCase = require('camelcase');
 
 // @desc GET the entire library
 // @route GET /api/v1/library
@@ -12,34 +14,95 @@ exports.getLibrary = (req, res, next) => {
 // @route POST /api/v1/library
 // @token Private
 exports.createLibrary = (req, res, next) => {
-  const form = formidable({ uploadDir: './uploads' });
-  // Parse `req` and upload all associated files
-  form.parse(req, (err, fields, files) => {
-    if (err != null) {
+  fs.emptyDir('./uploads', err => {
+    if (err) {
       console.log(err);
-      return res.status(400).json({ message: err.message });
+      return;
     }
+    console.log('All files deleted from directory Successfully.');
 
-    let getItunesPlaylists =
-      require('@johnpaulvaughan/itunes-music-library-tracks').getItunesPlaylists;
-    let validXMLpath = files.library.filepath;
+    // create Formidable class to handle the uploaded formData
+    const form = formidable({ uploadDir: './uploads' });
 
-    let trackStream = getItunesPlaylists(validXMLpath);
+    //@err - Error object
+    //@fields - Object - Any fields uploaded in the formData
+    //@files - Object - Any files uploaded with the formData
+    form.parse(req, (err, fields, files) => {
+      if (err != null) {
+        console.log(err);
+        return res.status(400).json({ message: err.message });
+      }
 
-    trackStream.on('data', function (track) {
-      console.log(JSON.parse(track));
+      getPlaylistsFromStream(files);
+      getAllSongsFromStream(files);
+
+      res.json({
+        success: true,
+        msg: `library created`,
+        files: files,
+      });
+    });
+  });
+};
+
+function getPlaylistsFromStream(files) {
+  const getItunesPlaylists =
+    require('@johnpaulvaughan/itunes-music-library-tracks').getItunesPlaylists;
+
+  const playlists = [];
+
+  // start the stream
+  let trackStream = getItunesPlaylists(files.library.filepath);
+
+  trackStream.on('data', function (playlist) {
+    playlists.push(JSON.parse(playlist));
+  });
+
+  trackStream.on('error', function (err) {
+    console.log(err);
+  });
+
+  trackStream.on('end', () => {
+    console.log('finished parsing xml stream');
+    // console.log(playlists);
+  });
+}
+
+function getAllSongsFromStream(files) {
+  const getItunesTracks =
+    require('@johnpaulvaughan/itunes-music-library-tracks').getItunesTracks;
+  const tracks = [];
+
+  // start the stream
+  let trackStream = getItunesTracks(files.library.filepath);
+
+  trackStream.on('data', function (track) {
+    let jsonTrack = JSON.parse(track);
+
+    let keys = Object.keys(jsonTrack);
+    const values = Object.values(jsonTrack);
+
+    keys = keys.map(key => {
+      return camelCase(key);
     });
 
-    trackStream.on('error', function (err) {
-      console.log(err);
-    });
+    console.log(keys);
 
-    trackStream.on('end', () => {
-      console.log('finished parsing xml stream');
-    });
+    tracks.push(jsonTrack);
+  });
 
-    // files has this format
-    /*
+  trackStream.on('error', function (err) {
+    console.log(err);
+  });
+
+  trackStream.on('end', () => {
+    console.log('finished parsing xml stream');
+    console.log(tracks[0]);
+  });
+}
+
+// files has this format
+/*
     "files": {
         "library": {
             "size": 27550890,
@@ -51,13 +114,3 @@ exports.createLibrary = (req, res, next) => {
         }
     },
    */
-
-    const { size, originalFilename } = files.library;
-
-    res.json({
-      success: true,
-      msg: `library created`,
-      files: files,
-    });
-  });
-};
