@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const colors = require('colors');
 
 // get routes
 const library = require('./routes/library');
@@ -36,5 +37,7 @@ app.use('/api/v1/songs', songs);
 app.use('/api/v1/albums', albums);
 
 const server = app.listen(PORT, () => {
-  console.log(`server running in ${process.env.NODE_ENV} on port ${PORT}`);
+  console.log(
+    `server running in ${process.env.NODE_ENV} on port ${PORT}`.yellow.bold
+  );
 });

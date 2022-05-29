@@ -3,6 +3,8 @@ const iTunesLibrary = require('../modules/loaders/itunesPlaylistGenerator.js');
 const fs = require('fs-extra');
 const camelCase = require('camelcase');
 
+let numKeys = 0;
+
 // @desc GET the entire library
 // @route GET /api/v1/library
 // @token public
@@ -55,7 +57,8 @@ function getPlaylistsFromStream(files) {
   let trackStream = getItunesPlaylists(files.library.filepath);
 
   trackStream.on('data', function (playlist) {
-    playlists.push(JSON.parse(playlist));
+    let jsonPlaylist = JSON.parse(playlist);
+    playlists.push(normaliseObjectKeys(jsonPlaylist));
   });
 
   trackStream.on('error', function (err) {
@@ -64,10 +67,10 @@ function getPlaylistsFromStream(files) {
 
   trackStream.on('end', () => {
     console.log('finished parsing xml stream');
-    // console.log(playlists);
   });
 }
 
+//@desc read a stream that emits tracks. Normalise the keys into camel case and add them to tracks Array
 function getAllSongsFromStream(files) {
   const getItunesTracks =
     require('@johnpaulvaughan/itunes-music-library-tracks').getItunesTracks;
@@ -78,17 +81,7 @@ function getAllSongsFromStream(files) {
 
   trackStream.on('data', function (track) {
     let jsonTrack = JSON.parse(track);
-
-    let keys = Object.keys(jsonTrack);
-    const values = Object.values(jsonTrack);
-
-    keys = keys.map(key => {
-      return camelCase(key);
-    });
-
-    console.log(keys);
-
-    tracks.push(jsonTrack);
+    tracks.push(normaliseObjectKeys(jsonTrack));
   });
 
   trackStream.on('error', function (err) {
@@ -97,11 +90,27 @@ function getAllSongsFromStream(files) {
 
   trackStream.on('end', () => {
     console.log('finished parsing xml stream');
-    console.log(tracks[0]);
+    console.log(`numKeys ${numKeys}`);
   });
 }
 
-// files has this format
+function normaliseObjectKeys(obj) {
+  let keys = Object.keys(obj);
+  const values = Object.values(obj);
+
+  keys = keys.map(key => {
+    return camelCase(key);
+  });
+
+  const normalisedObj = {};
+  keys.forEach((key, index) => {
+    normalisedObj[key] = values[index];
+  });
+
+  return normalisedObj;
+}
+
+// files var returned from Formidable has this format
 /*
     "files": {
         "library": {
