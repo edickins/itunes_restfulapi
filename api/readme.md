@@ -101,3 +101,18 @@ playlist keys:
 6:'visible'
 7:'allItems'
 8:'playlistItems'
+
+mongoDB mongoose connection errors:
+if the connection to the mongodb database fails it will throw an MongoServerError: Authentication failed.
+all non-handled exceptions are now handled by a function in server.js
+
+// connect to database
+mongosh mongodb://localhost:27017
+
+// switch to admin db
+use admin
+
+// authenticate
+db.auth( <username>, passwordPrompt() )
+
+db.auth( "admin", passwordPrompt() ) - password is "admin"

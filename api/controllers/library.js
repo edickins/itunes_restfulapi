@@ -3,8 +3,6 @@ const iTunesLibrary = require('../modules/loaders/itunesPlaylistGenerator.js');
 const fs = require('fs-extra');
 const camelCase = require('camelcase');
 
-let numKeys = 0;
-
 // @desc GET the entire library
 // @route GET /api/v1/library
 // @token public
@@ -90,7 +88,6 @@ function getAllSongsFromStream(files) {
 
   trackStream.on('end', () => {
     console.log('finished parsing xml stream');
-    console.log(`numKeys ${numKeys}`);
   });
 }
 
