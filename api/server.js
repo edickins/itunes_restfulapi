@@ -11,7 +11,7 @@ dotenv.config({ path: './config/config.env' });
 const library = require('./routes/library');
 const playlists = require('./routes/playlists');
 const artists = require('./routes/artists');
-const songs = require('./routes/songs');
+const tracks = require('./routes/tracks');
 const albums = require('./routes/albums');
 
 const PORT = process.env.PORT || 5000;
@@ -37,7 +37,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/library', library);
 app.use('/api/v1/playlists', playlists);
 app.use('/api/v1/artists', artists);
-app.use('/api/v1/songs', songs);
+app.use('/api/v1/tracks', tracks);
 app.use('/api/v1/albums', albums);
 
 const server = app.listen(PORT, () => {
