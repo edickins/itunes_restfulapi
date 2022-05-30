@@ -2,6 +2,7 @@ const formidable = require('formidable');
 const iTunesLibrary = require('../modules/loaders/itunesPlaylistGenerator.js');
 const fs = require('fs-extra');
 const camelCase = require('camelcase');
+const Playlist = require('../models/Playlist');
 
 // @desc GET the entire library
 // @route GET /api/v1/library
@@ -63,9 +64,10 @@ function getPlaylistsFromStream(files) {
     console.log(err);
   });
 
-  trackStream.on('end', () => {
+  trackStream.on('end', async () => {
     console.log('finished parsing xml stream');
-    console.log(playlists[15]);
+    const playlist = await Playlist.insertMany(playlists);
+    console.log('playlists added to database');
   });
 }
 
