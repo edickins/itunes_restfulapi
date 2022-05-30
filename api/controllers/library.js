@@ -65,6 +65,7 @@ function getPlaylistsFromStream(files) {
 
   trackStream.on('end', () => {
     console.log('finished parsing xml stream');
+    console.log(playlists[15]);
   });
 }
 

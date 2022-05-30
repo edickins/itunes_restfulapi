@@ -5,6 +5,7 @@ example track data:
 trackId: '9655',
 name: 'Track 3',
 artist: 'Octave One',
+albumArtist: 'Octave One',
 album: '430 West pres. Detroit Calling',
 grouping: '430 West / Direct Beat',
 genre: 'Techno',

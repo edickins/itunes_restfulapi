@@ -22,7 +22,7 @@ connectDB();
 const app = express();
 
 // Parse JSON bodies for this app. Make sure you put
-app.use(require('body-parser').urlencoded({ extended: false }));
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send(`itunes library`);
