@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 const camelCase = require('camelcase');
 const Playlist = require('../models/Playlist');
 const Track = require('../models/Track');
+const mongoose = require('mongoose');
 
 // @desc GET the entire library
 // @route GET /api/v1/library
@@ -67,6 +68,18 @@ function getPlaylistsFromStream(files) {
 
   trackStream.on('end', async () => {
     console.log('finished parsing xml stream');
+    playlists.forEach(playlist => {
+      console.log(`playlist.name ${playlist.name}`);
+    });
+
+    mongoose.connection.db.dropCollection('playlists', function (err, result) {
+      if (!err) {
+        console.log(result);
+      } else {
+        console.log(err.message);
+      }
+    });
+
     const playlist = await Playlist.insertMany(playlists);
     console.log('playlists added to database');
   });
@@ -92,8 +105,17 @@ function getAllSongsFromStream(files) {
 
   trackStream.on('end', async () => {
     console.log('finished parsing xml stream');
+    // Drop the 'foo' collection from the current database
+    mongoose.connection.db.dropCollection('tracks', function (err, result) {
+      if (!err) {
+        console.log(result);
+      } else {
+        console.log(err.message);
+      }
+    });
+
     const playlist = await Track.insertMany(tracks);
-    console.log('playlists added to database');
+    console.log('tracks added to database');
   });
 }
 
