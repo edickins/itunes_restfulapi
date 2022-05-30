@@ -1,10 +1,22 @@
 const Playlist = require('../models/Playlist');
+const Tracks = require('../models/Track');
 
 // @desc GET all playlists
 // @route GET /api/v1/playlists
 // @token public
-exports.getPlaylists = (req, res, next) => {
-  res.status(200).json({ success: true, msg: `get all playlists` });
+exports.getPlaylists = async (req, res, next) => {
+  const dbPlaylists = await Playlist.find();
+
+  const promises = [];
+  dbPlaylists[20].tracks.forEach(async trackId => {
+    promises.push(Tracks.find({ trackId: trackId }));
+  });
+
+  await Promise.all(promises).then(tracks => {
+    res
+      .status(200)
+      .json({ success: true, msg: `get all playlists`, tracks: tracks });
+  });
 };
 
 // @desc GET a single playlist
