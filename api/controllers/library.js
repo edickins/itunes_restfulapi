@@ -3,6 +3,7 @@ const iTunesLibrary = require('../modules/loaders/itunesPlaylistGenerator.js');
 const fs = require('fs-extra');
 const camelCase = require('camelcase');
 const Playlist = require('../models/Playlist');
+const Track = require('../models/Track');
 
 // @desc GET the entire library
 // @route GET /api/v1/library
@@ -89,8 +90,10 @@ function getAllSongsFromStream(files) {
     console.log(err);
   });
 
-  trackStream.on('end', () => {
+  trackStream.on('end', async () => {
     console.log('finished parsing xml stream');
+    const playlist = await Track.insertMany(tracks);
+    console.log('playlists added to database');
   });
 }
 
