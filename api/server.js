@@ -8,7 +8,7 @@ const connectDB = require('./config/db');
 dotenv.config({ path: './config/config.env' });
 
 // get routes
-const library = require('./routes/library');
+const upload = require('./routes/upload');
 const playlists = require('./routes/playlists');
 const artists = require('./routes/artists');
 const tracks = require('./routes/tracks');
@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Mount routes
-app.use('/api/v1/library', library);
+app.use('/api/v1/upload', upload);
 app.use('/api/v1/playlists', playlists);
 app.use('/api/v1/artists', artists);
 app.use('/api/v1/tracks', tracks);

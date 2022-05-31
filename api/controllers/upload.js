@@ -6,17 +6,10 @@ const Playlist = require('../models/Playlist');
 const Track = require('../models/Track');
 const mongoose = require('mongoose');
 
-// @desc GET the entire library
-// @route GET /api/v1/library
-// @token public
-exports.getLibrary = (req, res, next) => {
-  res.status(200).json({ success: true, msg: `get iTunes library` });
-};
-
 // @desc Create a new library
 // @route POST /api/v1/library
 // @token Private
-exports.createLibrary = (req, res, next) => {
+exports.uploadFile = (req, res, next) => {
   fs.emptyDir('./uploads', err => {
     if (err) {
       console.log(err);
@@ -36,8 +29,8 @@ exports.createLibrary = (req, res, next) => {
         return res.status(400).json({ message: err.message });
       }
 
-      getPlaylistsFromStream(files);
-      getAllSongsFromStream(files);
+      getPlaylistsFromStream(files.library.filepath);
+      getAllSongsFromStream(files.library.filepath);
 
       res.json({
         success: true,
@@ -48,14 +41,14 @@ exports.createLibrary = (req, res, next) => {
   });
 };
 
-function getPlaylistsFromStream(files) {
+function getPlaylistsFromStream(filepath) {
   const getItunesPlaylists =
     require('@johnpaulvaughan/itunes-music-library-tracks').getItunesPlaylists;
 
   const playlists = [];
 
   // start the stream
-  let trackStream = getItunesPlaylists(files.library.filepath);
+  let trackStream = getItunesPlaylists(filepath);
 
   trackStream.on('data', function (playlist) {
     let jsonPlaylist = JSON.parse(playlist);
@@ -86,13 +79,13 @@ function getPlaylistsFromStream(files) {
 }
 
 //@desc read a stream that emits tracks. Normalise the keys into camel case and add them to tracks Array
-function getAllSongsFromStream(files) {
+function getAllSongsFromStream(filepath) {
   const getItunesTracks =
     require('@johnpaulvaughan/itunes-music-library-tracks').getItunesTracks;
   const tracks = [];
 
   // start the stream
-  let trackStream = getItunesTracks(files.library.filepath);
+  let trackStream = getItunesTracks(filepath);
 
   trackStream.on('data', function (track) {
     let jsonTrack = JSON.parse(track);
