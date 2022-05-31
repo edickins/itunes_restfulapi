@@ -7,15 +7,29 @@ const Tracks = require('../models/Track');
 exports.getPlaylists = async (req, res, next) => {
   const dbPlaylists = await Playlist.find();
 
-  const promises = [];
-  dbPlaylists[20].tracks.forEach(async trackId => {
-    promises.push(Tracks.find({ trackId: trackId }));
-  });
+  const miniPlaylists = [];
+  miniPlaylists.push(dbPlaylists[20]);
+  // miniPlaylists.push(dbPlaylists[21]);
+  // miniPlaylists.push(dbPlaylists[22]);
 
-  await Promise.all(promises).then(tracks => {
+  Promise.all(
+    miniPlaylists.map(playlist => {
+      return Promise.all(
+        playlist.tracks.map(trackId => {
+          return Tracks.find({ trackId: trackId });
+        })
+      );
+    })
+  ).then(function (data) {
+    miniPlaylists.forEach((playlist, index) => {
+      playlist.tracks = data[index];
+      // console.log(`tracklist data ${data[index]}`);
+      console.log(`playlist.tracks ${playlist.tracks}`);
+    });
+
     res
       .status(200)
-      .json({ success: true, msg: `get all playlists`, tracks: tracks });
+      .json({ success: true, msg: `get playlists`, data: dbPlaylists });
   });
 };
 

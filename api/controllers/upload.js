@@ -47,12 +47,11 @@ function getPlaylistsFromStream(filepath) {
 
   const playlists = [];
 
-  // start the stream
+  // start the stream from the uploaded library.xml
   let trackStream = getItunesPlaylists(filepath);
 
   trackStream.on('data', function (playlist) {
-    let jsonPlaylist = JSON.parse(playlist);
-    playlists.push(normaliseObjectKeys(jsonPlaylist));
+    playlists.push(normaliseObjectKeys(JSON.parse(playlist)));
   });
 
   trackStream.on('error', function (err) {
@@ -63,8 +62,10 @@ function getPlaylistsFromStream(filepath) {
     console.log('finished parsing xml stream');
     playlists.forEach(playlist => {
       console.log(`playlist.name ${playlist.name}`);
+      console.log(`playlist.descriptions ${playlist.description}`);
     });
 
+    // remove previous playlists collection as all content is new
     mongoose.connection.db.dropCollection('playlists', function (err, result) {
       if (!err) {
         console.log(result);
@@ -84,12 +85,11 @@ function getAllSongsFromStream(filepath) {
     require('@johnpaulvaughan/itunes-music-library-tracks').getItunesTracks;
   const tracks = [];
 
-  // start the stream
+  // start the stream from the uploaded library.xml
   let trackStream = getItunesTracks(filepath);
 
   trackStream.on('data', function (track) {
-    let jsonTrack = JSON.parse(track);
-    tracks.push(normaliseObjectKeys(jsonTrack));
+    tracks.push(normaliseObjectKeys(JSON.parse(track)));
   });
 
   trackStream.on('error', function (err) {
@@ -98,7 +98,7 @@ function getAllSongsFromStream(filepath) {
 
   trackStream.on('end', async () => {
     console.log('finished parsing xml stream');
-    // Drop the 'foo' collection from the current database
+    // remove previous tracks collection as all content is new
     mongoose.connection.db.dropCollection('tracks', function (err, result) {
       if (!err) {
         console.log(result);
