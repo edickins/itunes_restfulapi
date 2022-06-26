@@ -5,10 +5,10 @@ import { nanoid } from 'nanoid';
 
 export default function Playlists() {
 	const [playlists, setPlaylists] = React.useState([]);
-	const [playlistEls, setPlaylistEls] = React.useState([]);
+	const [playlistsEls, setPlaylistsEls] = React.useState([]);
 
 	React.useEffect(() => {
-		setPlaylistEls(
+		setPlaylistsEls(
 			playlists.map(playlist => {
 				if (playlist.tracks.length < 200 && playlist.tracks.length > 0) {
 					return <Playlist playlist={playlist} key={nanoid()} />;
@@ -26,5 +26,5 @@ export default function Playlists() {
 	}, []);
 
 	// setPlaylists(getPlaylists());
-	return <div>{playlistEls}</div>;
+	return <div>{playlistsEls}</div>;
 }
