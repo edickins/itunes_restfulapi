@@ -16,6 +16,7 @@ exports.getTrack = async (req, res, next) => {
 	res.status(200).json({
 		success: true,
 		msg: `get track with id ${req.params.id}`,
+		id: `${req.params.id}`,
 		data: track,
 	});
 };

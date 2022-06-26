@@ -20,7 +20,6 @@ export default function Playlist(props) {
 			.all(allRequests)
 			.then(
 				axios.spread((...responses) => {
-					console.log(responses[0]);
 					setTracks(responses);
 				})
 			)
@@ -30,14 +29,28 @@ export default function Playlist(props) {
 	}, [tracksAsNumbers]);
 
 	React.useEffect(() => {
-		console.log(tracks);
+		// console.log(`tracks.useEffect tracks: ${tracks[0].data.data[0].name}`);
 		setPlaylistEls(
 			tracks.map(track => {
-				return (
-					<div>
-						<p>poo</p>
-					</div>
-				);
+				if (track.data && track.data.data && track.data.data.length > 0) {
+					return (
+						<div>
+							<p>
+								`id:{track.data.data[0].trackId} name: {track.data.data[0].name}
+								`
+							</p>
+						</div>
+					);
+				} else {
+					const keys = Object.keys(track.data);
+					return (
+						<div>
+							<p>
+								`id:{track.data.id} no track name {track.data.data}`
+							</p>
+						</div>
+					);
+				}
 			})
 		);
 	}, [tracks]);
