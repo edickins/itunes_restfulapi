@@ -1,5 +1,4 @@
 const Playlist = require('../models/Playlist');
-const Tracks = require('../models/Track');
 
 // @desc GET all playlists
 // @route GET /api/v1/playlists
@@ -14,10 +13,15 @@ exports.getPlaylists = async (req, res, next) => {
 // @desc GET a single playlist
 // @route GET /api/v1/playlists/:id
 // @token public
-exports.getPlaylist = (req, res) => {
-	res
-		.status(200)
-		.json({ success: true, msg: `get playlist with id ${req.params.id}` });
+exports.getPlaylist = async (req, res) => {
+	const dbPlaylist = await Playlist.find({
+		playlistId: req.params.id,
+	});
+	res.status(200).json({
+		success: true,
+		msg: `get playlist with id ${req.params.id}`,
+		data: dbPlaylist,
+	});
 };
 
 // @desc POST a single playlist

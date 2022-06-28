@@ -10,122 +10,126 @@ const mongoose = require('mongoose');
 // @route POST /api/v1/library
 // @token Private
 exports.uploadFile = (req, res, next) => {
-  fs.emptyDir('./uploads', err => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log('All files deleted from directory Successfully.');
+	fs.emptyDir('./uploads', err => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log('All files deleted from directory Successfully.');
 
-    // create Formidable class to handle the uploaded formData
-    const form = formidable({ uploadDir: './uploads' });
+		// create Formidable class to handle the uploaded formData
+		const form = formidable({ uploadDir: './uploads' });
 
-    //@err - Error object
-    //@fields - Object - Any fields uploaded in the formData
-    //@files - Object - Any files uploaded with the formData
-    form.parse(req, (err, fields, files) => {
-      if (err != null) {
-        console.log(err);
-        return res.status(400).json({ message: err.message });
-      }
+		//@err - Error object
+		//@fields - Object - Any fields uploaded in the formData
+		//@files - Object - Any files uploaded with the formData
+		form.parse(req, (err, fields, files) => {
+			if (err != null) {
+				console.log(err);
+				return res.status(400).json({ message: err.message });
+			}
 
-      getPlaylistsFromStream(files.library.filepath);
-      getAllSongsFromStream(files.library.filepath);
+			getPlaylistsFromStream(files.library.filepath);
+			getAllSongsFromStream(files.library.filepath);
 
-      res.json({
-        success: true,
-        msg: `library created`,
-        files: files,
-      });
-    });
-  });
+			res.json({
+				success: true,
+				msg: `library created`,
+				files: files,
+			});
+		});
+	});
 };
 
 function getPlaylistsFromStream(filepath) {
-  const getItunesPlaylists =
-    require('@johnpaulvaughan/itunes-music-library-tracks').getItunesPlaylists;
+	const getItunesPlaylists =
+		require('@johnpaulvaughan/itunes-music-library-tracks').getItunesPlaylists;
 
-  const playlists = [];
+	const playlists = [];
 
-  // start the stream from the uploaded library.xml
-  let trackStream = getItunesPlaylists(filepath);
+	// start the stream from the uploaded library.xml
+	let playlistsStream = getItunesPlaylists(filepath);
 
-  trackStream.on('data', function (playlist) {
-    playlists.push(normaliseObjectKeys(JSON.parse(playlist)));
-  });
+	playlistsStream.on('data', function (playlist) {
+		// console.log(`adding playlist ${playlist}`);
+		playlists.push(normaliseObjectKeys(JSON.parse(playlist)));
+	});
 
-  trackStream.on('error', function (err) {
-    console.log(err);
-  });
+	playlistsStream.on('error', function (err) {
+		console.log(err);
+	});
 
-  trackStream.on('end', async () => {
-    console.log('finished parsing xml stream');
-    playlists.forEach(playlist => {
-      console.log(`playlist.name ${playlist.name}`);
-      console.log(`playlist.descriptions ${playlist.description}`);
-    });
+	playlistsStream.on('end', async () => {
+		console.log('finished parsing xml stream for playlists');
+		playlists.forEach(playlist => {
+			console.log(`playlist.name ${playlist.name}`);
+			// console.log(`playlist.descriptions ${playlist.description}`);
+		});
 
-    // remove previous playlists collection as all content is new
-    mongoose.connection.db.dropCollection('playlists', function (err, result) {
-      if (!err) {
-        console.log(result);
-      } else {
-        console.log(err.message);
-      }
-    });
+		// remove previous playlists collection as all content is new
+		mongoose.connection.db.dropCollection('playlists', function (err, result) {
+			if (!err) {
+				console.log(result);
+			} else {
+				console.log(err.message);
+			}
+		});
 
-    const playlist = await Playlist.insertMany(playlists);
-    console.log('playlists added to database');
-  });
+		const playlist = await Playlist.insertMany(playlists[playlists.length - 1]);
+		console.log('playlists added to database ${playlist}');
+	});
 }
 
 //@desc read a stream that emits tracks. Normalise the keys into camel case and add them to tracks Array
 function getAllSongsFromStream(filepath) {
-  const getItunesTracks =
-    require('@johnpaulvaughan/itunes-music-library-tracks').getItunesTracks;
-  const tracks = [];
+	const getItunesTracks =
+		require('@johnpaulvaughan/itunes-music-library-tracks').getItunesTracks;
+	const tracks = [];
 
-  // start the stream from the uploaded library.xml
-  let trackStream = getItunesTracks(filepath);
+	// start the stream from the uploaded library.xml
+	let trackStream = getItunesTracks(filepath);
 
-  trackStream.on('data', function (track) {
-    tracks.push(normaliseObjectKeys(JSON.parse(track)));
-  });
+	trackStream.on('data', function (track) {
+		tracks.push(normaliseObjectKeys(JSON.parse(track)));
+	});
 
-  trackStream.on('error', function (err) {
-    console.log(err);
-  });
+	trackStream.on('error', function (err) {
+		console.log(err);
+	});
 
-  trackStream.on('end', async () => {
-    console.log('finished parsing xml stream');
-    // remove previous tracks collection as all content is new
-    mongoose.connection.db.dropCollection('tracks', function (err, result) {
-      if (!err) {
-        console.log(result);
-      } else {
-        console.log(err.message);
-      }
-    });
+	trackStream.on('end', async () => {
+		// remove previous tracks collection as all content is new
+		mongoose.connection.db.dropCollection('tracks', function (err, result) {
+			if (!err) {
+				console.log(result);
+			} else {
+				console.log(err.message);
+			}
+		});
 
-    const playlist = await Track.insertMany(tracks);
-    console.log('tracks added to database');
-  });
+		await Track.insertMany(tracks);
+		console.log('tracks added to database');
+	});
 }
 
 function normaliseObjectKeys(obj) {
-  let keys = Object.keys(obj);
-  const values = Object.values(obj);
+	let keys = Object.keys(obj);
+	const values = Object.values(obj);
 
-  keys = keys.map(key => {
-    return camelCase(key);
-  });
+	if (obj['Name'].indexOf('Blackbird') > -1) {
+		console.log(`Blackbird song found ${obj['Track ID']}`);
+	}
 
-  const normalisedObj = {};
-  keys.forEach((key, index) => {
-    normalisedObj[key] = values[index];
-  });
+	keys = keys.map(key => {
+		return camelCase(key);
+	});
 
-  return normalisedObj;
+	const normalisedObj = {};
+	keys.forEach((key, index) => {
+		normalisedObj[key] = values[index];
+	});
+
+	return normalisedObj;
 }
 
 // files var returned from Formidable has this format

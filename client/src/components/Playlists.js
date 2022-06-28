@@ -26,5 +26,5 @@ export default function Playlists() {
 	}, []);
 
 	// setPlaylists(getPlaylists());
-	return <div>{playlistsEls}</div>;
+	return <div className='playlists--container'>{playlistsEls}</div>;
 }

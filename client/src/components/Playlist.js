@@ -13,41 +13,21 @@ export default function Playlist(props) {
 	const [playlistEls, setPlaylistEls] = React.useState([]);
 
 	React.useEffect(() => {
-		processTracks();
-	}, [tracksAsNumbers]);
-
-	React.useEffect(() => {
 		// console.log(`tracks.useEffect tracks: ${tracks[0].data.data[0].name}`);
 		setPlaylistEls(
 			tracks.map(track => {
 				if (track.data && track.data.data && track.data.data.length > 0) {
 					return <TrackItem data={track.data.data[0]} key={nanoid()} />;
 				} else {
-					return (
-						<div>
-							<p>`id:{track.data.id} no track name`</p>
-						</div>
-					);
+					return <TrackItem data={[]} key={nanoid()} />;
 				}
 			})
 		);
 	}, [tracks]);
 
-	function processTracks() {
-		const baseURL = `/api/v1/tracks`;
-		if (tracksAsNumbers.length) {
-			axios.get(`${baseURL}/${tracksAsNumbers[0]}`).then(track => {
-				console.log(track);
-				setTracks(oldTracks => {
-					return [...oldTracks, track];
-				});
-			});
-		}
-	}
-
 	return (
 		<div className={styles.playlistContainer}>
-			<p>{name}</p>
+			<h3>{name}</h3>
 			<pre>{playlistId}</pre>
 			<pre>{tracksAsNumbers.length} songs.</pre>
 			{playlistEls}
