@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../playlist.module.css';
+import styles from '../css/playlist.module.css';
 import axios from 'axios';
 import TrackItem from './TrackItem';
 import { nanoid } from 'nanoid';
@@ -26,7 +26,7 @@ export default function Playlist(props) {
 	}, [tracks]);
 
 	return (
-		<div className={styles.playlistContainer}>
+		<div className={styles.playlistBtn}>
 			<h3>{name}</h3>
 			<pre>{playlistId}</pre>
 			<pre>{tracksAsNumbers.length} songs.</pre>

@@ -75,7 +75,9 @@ function getPlaylistsFromStream(filepath) {
 			}
 		});
 
-		const playlist = await Playlist.insertMany(playlists[playlists.length - 1]);
+		/* this line adds only the last playlist to the database xmas */
+		// const playlist = await Playlist.insertMany(playlists[playlists.length - 1]);
+		const playlist = await Playlist.insertMany(playlists);
 		console.log('playlists added to database ${playlist}');
 	});
 }
@@ -115,10 +117,6 @@ function getAllSongsFromStream(filepath) {
 function normaliseObjectKeys(obj) {
 	let keys = Object.keys(obj);
 	const values = Object.values(obj);
-
-	if (obj['Name'].indexOf('Blackbird') > -1) {
-		console.log(`Blackbird song found ${obj['Track ID']}`);
-	}
 
 	keys = keys.map(key => {
 		return camelCase(key);

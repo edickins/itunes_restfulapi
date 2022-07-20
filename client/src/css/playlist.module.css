@@ -1,0 +1,11 @@
+.playlistBtn {
+	padding: 2em;
+	background-color: aliceblue;
+	border-radius: 10px;
+	border: 2px solid palegreen;
+}
+
+.playlistBtn:hover,
+.playlistBtn:focus {
+	background-color: cadetblue;
+}
