@@ -11,7 +11,7 @@ export default function PlaylistTracks(props) {
 			console.log(`tracks.useEffect tracks: ${tracks}`);
 			setTracksEls(
 				tracks.map(track => {
-					return <TrackItem data={track} key={nanoid()} />;
+					return <TrackItem track={track} key={nanoid()} />;
 				})
 			);
 		}
