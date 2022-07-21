@@ -12,7 +12,13 @@ export default function Playlists(props) {
 		setPlaylistsEls(
 			playlists.map(playlist => {
 				if (playlist.tracks.length > 0 && playlist.tracks.length < 200) {
-					return <Playlist playlist={playlist} key={nanoid()} />;
+					return (
+						<Playlist
+							playlist={playlist}
+							key={nanoid()}
+							getPlaylistTracks={props.getPlaylistTracks}
+						/>
+					);
 				} else {
 					return null;
 				}

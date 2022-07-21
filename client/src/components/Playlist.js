@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../css/playlist.module.css';
-import axios from 'axios';
 import TrackItem from './TrackItem';
 import { nanoid } from 'nanoid';
 
@@ -12,7 +11,9 @@ export default function Playlist(props) {
 	const [tracks, setTracks] = React.useState([]);
 	const [playlistEls, setPlaylistEls] = React.useState([]);
 
-	React.useEffect(() => {
+	//TODO - Playlist still holds reference to 'tracks' array, but it is unlikely
+	// that it will be where tracks are rendered. Review this.
+	/* React.useEffect(() => {
 		// console.log(`tracks.useEffect tracks: ${tracks[0].data.data[0].name}`);
 		setPlaylistEls(
 			tracks.map(track => {
@@ -23,14 +24,19 @@ export default function Playlist(props) {
 				}
 			})
 		);
-	}, [tracks]);
+	}, []); */
+
+	function onPlaylistClick(e) {
+		e.preventDefault();
+		props.getPlaylistTracks(playlistId);
+	}
 
 	return (
-		<div className={styles.playlistBtn}>
+		<div className={styles.playlistBtn} onClick={onPlaylistClick}>
 			<h3>{name}</h3>
 			<pre>{playlistId}</pre>
 			<pre>{tracksAsNumbers.length} songs.</pre>
-			{playlistEls}
+			{/* 			{playlistEls} */}
 		</div>
 	);
 }

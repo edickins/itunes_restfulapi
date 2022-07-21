@@ -17,16 +17,33 @@ const App = () => {
 		<div className='container mt-4'>
 			<h4 className='display-4 text-center mb-4'>iTunes library</h4>
 			{/* <FileUpload /> */}
-			<Playlists playlists={playlists} />
+			<Playlists playlists={playlists} getPlaylistTracks={getPlaylistTracks} />
 			<Tracklist />
 		</div>
 	);
 
-	function getPlaylists() {
+	async function getPlaylistTracks(playlistId) {
+		const baseURL = '/api/v1/playlistTracks';
+		try {
+			let response = await axios.get(`${baseURL}/${playlistId}`);
+			if (response.success === true) {
+				console.log(response.data.data);
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	async function getPlaylists() {
 		const baseURL = '/api/v1/playlists';
-		axios.get(baseURL).then(response => {
-			setPlaylists(response.data.data);
-		});
+		try {
+			let response = await axios.get(baseURL);
+			if (response.success === true) {
+				setPlaylists(response.data.data);
+			}
+		} catch (err) {
+			console.log(err);
+		}
 	}
 };
 
