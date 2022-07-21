@@ -7,47 +7,62 @@ import './css/styles.css';
 
 const App = () => {
 	const [playlists, setPlaylists] = React.useState([]);
+	const [selectedPlaylistId, setSelectedPlaylistId] = React.useState('');
+	const [selectedPlaylist, setSelectedPlaylist] = React.useState({});
+	const [selectedTracklist, setSelectedTracklist] = React.useState([]);
+	const [tracklistOpen, setTracklistOpen] = React.useState(false);
 
 	/* get playlists when App loads */
 	React.useEffect(() => {
 		getPlaylists();
 	}, []);
 
+	React.useEffect(() => {
+		if (playlists.length === 0) return;
+		getTracks(selectedPlaylistId);
+		setSelectedPlaylist(
+			playlists.find(playlist => {
+				return playlist.playlistId === selectedPlaylistId;
+			})
+		);
+		setTracklistOpen(true);
+	}, [selectedPlaylistId]);
+
+	/* render */
 	return (
 		<div className='container mt-4'>
 			<h4 className='display-4 text-center mb-4'>iTunes library</h4>
 			{/* <FileUpload /> */}
 			<Playlists playlists={playlists} onPlaylistClicked={onPlaylistClicked} />
-			<Tracklist />
+			<Tracklist
+				name={selectedPlaylist.name ? selectedPlaylist.name : ''}
+				description={
+					selectedPlaylist.description ? selectedPlaylist.description : ''
+				}
+				tracks={selectedTracklist}
+				tracklistOpen={tracklistOpen}
+				onCloseTracklistClicked={onCloseTracklistClicked}
+			/>
 		</div>
 	);
 
 	/* click handlers */
 	async function onPlaylistClicked(playlistId) {
-		getTracks(playlistId);
-		selectPlaylistButton(playlistId);
+		setSelectedPlaylistId(playlistId);
 	}
 
-	/* display functions */
-	function selectPlaylistButton(playlistId) {
-		/* const playlistButtons = document.querySelectorAll('.playlist');
-
-		const els = Array.from(playlistButtons);
-		els.forEach(el => {
-			el.classList.remove('selected');
-		}); */
-
-		const selectedButton = document.getElementById(`playlist${playlistId}`);
-		selectedButton.classList.toggle('selected');
+	function onCloseTracklistClicked() {
+		setTracklistOpen(false);
 	}
 
 	/* API calls */
-	async function getTracks(playlistId) {
+	async function getTracks() {
+		if (selectedPlaylistId === '') return;
 		const baseURL = '/api/v1/playlistTracks';
 		try {
-			let response = await axios.get(`${baseURL}/${playlistId}`);
+			let response = await axios.get(`${baseURL}/${selectedPlaylistId}`);
 			if (response.data.success === true) {
-				console.log(response.data.data);
+				setSelectedTracklist(response.data.data);
 			}
 		} catch (err) {
 			console.log(err);

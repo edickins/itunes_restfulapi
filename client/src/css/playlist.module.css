@@ -6,6 +6,7 @@
 }
 
 .playlistBtn:hover,
-.playlistBtn:focus {
+.playlistBtn:focus,
+.playlistBtn.selected {
 	background-color: cadetblue;
 }

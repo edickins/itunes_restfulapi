@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/playlist.module.css';
+// import styles from '../css/playlist.module.css';
 import TrackItem from './TrackItem';
 import { nanoid } from 'nanoid';
 
@@ -34,7 +34,7 @@ export default function Playlist(props) {
 	return (
 		<div
 			id={`playlist${playlistId}`}
-			className={`playlist ${styles.playlistBtn}`}
+			className={`playlist playlistBtn`}
 			onClick={onPlaylistClick}
 		>
 			<h3>{name}</h3>

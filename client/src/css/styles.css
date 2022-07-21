@@ -3,7 +3,7 @@
 }
 
 html {
-	height: 100%;
+	height: auto;
 }
 
 body {
@@ -13,15 +13,60 @@ body {
 #root {
 	width: 100%;
 }
+/* playlists */
 
-.playlists--container {
+.playlistsContainer {
 	display: grid;
 	row-gap: 1em;
 	column-gap: 1em;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.playlist.selected {
-	background-color: red;
-	grid-column: 1 / span 4;
+.playlistBtn {
+	padding: 2em;
+	background-color: aliceblue;
+	border-radius: 10px;
+	border: 2px solid palegreen;
+}
+
+.playlistBtn:hover,
+.playlistBtn:focus,
+.playlistBtn.selected {
+	background-color: cadetblue;
+}
+
+/* tracklist */
+.playlistInfo {
+	color: #fff;
+}
+#closeTracklistBtn {
+	position: absolute;
+	right: 2em;
+	top: 2em;
+	font-size: 3rem;
+}
+
+.tracklistContainer {
+	position: fixed;
+	width: 100%;
+
+	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+	transition-duration: 0.5s;
+	transition-property: all;
+
+	background-color: rgba(0, 0, 0, 0.8);
+	top: 0;
+	left: 0;
+	bottom: 0;
+	transform: translateX(100%);
+}
+
+.open {
+	transform: translateX(0);
+}
+
+/* trackItem */
+.trackTitle {
+	color: #fff;
+	font-size: 1.2rem;
 }
