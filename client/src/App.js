@@ -26,7 +26,7 @@ const App = () => {
 		const baseURL = '/api/v1/playlistTracks';
 		try {
 			let response = await axios.get(`${baseURL}/${playlistId}`);
-			if (response.success === true) {
+			if (response.data.success === true) {
 				console.log(response.data.data);
 			}
 		} catch (err) {
@@ -38,7 +38,7 @@ const App = () => {
 		const baseURL = '/api/v1/playlists';
 		try {
 			let response = await axios.get(baseURL);
-			if (response.success === true) {
+			if (response.data.success === true) {
 				setPlaylists(response.data.data);
 			}
 		} catch (err) {

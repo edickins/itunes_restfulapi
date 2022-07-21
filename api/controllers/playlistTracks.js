@@ -11,18 +11,18 @@ exports.getPlaylistTracks = async (req, res) => {
 
 	const tracks = dbPlaylist[0].tracks;
 
-	console.log(`tracks: ${tracks}`);
-
 	const trackDetailPromises = tracks.map(track => {
 		return findTrackDetails(track);
 	});
 
 	Promise.all(trackDetailPromises).then(results => {
-		console.log(results);
+		const tracks = results.map(trackArray => {
+			return trackArray[0];
+		});
 		res.status(200).json({
 			success: true,
 			msg: `get playlist with id ${req.params.id}`,
-			data: results,
+			data: tracks,
 		});
 	});
 };
