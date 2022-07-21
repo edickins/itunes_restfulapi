@@ -16,7 +16,7 @@ export default function Playlists(props) {
 						<Playlist
 							playlist={playlist}
 							key={nanoid()}
-							getPlaylistTracks={props.getPlaylistTracks}
+							onPlaylistClicked={props.onPlaylistClicked}
 						/>
 					);
 				} else {

@@ -17,12 +17,32 @@ const App = () => {
 		<div className='container mt-4'>
 			<h4 className='display-4 text-center mb-4'>iTunes library</h4>
 			{/* <FileUpload /> */}
-			<Playlists playlists={playlists} getPlaylistTracks={getPlaylistTracks} />
+			<Playlists playlists={playlists} onPlaylistClicked={onPlaylistClicked} />
 			<Tracklist />
 		</div>
 	);
 
-	async function getPlaylistTracks(playlistId) {
+	/* click handlers */
+	async function onPlaylistClicked(playlistId) {
+		getTracks(playlistId);
+		selectPlaylistButton(playlistId);
+	}
+
+	/* display functions */
+	function selectPlaylistButton(playlistId) {
+		/* const playlistButtons = document.querySelectorAll('.playlist');
+
+		const els = Array.from(playlistButtons);
+		els.forEach(el => {
+			el.classList.remove('selected');
+		}); */
+
+		const selectedButton = document.getElementById(`playlist${playlistId}`);
+		selectedButton.classList.toggle('selected');
+	}
+
+	/* API calls */
+	async function getTracks(playlistId) {
 		const baseURL = '/api/v1/playlistTracks';
 		try {
 			let response = await axios.get(`${baseURL}/${playlistId}`);

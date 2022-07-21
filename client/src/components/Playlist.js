@@ -28,11 +28,15 @@ export default function Playlist(props) {
 
 	function onPlaylistClick(e) {
 		e.preventDefault();
-		props.getPlaylistTracks(playlistId);
+		props.onPlaylistClicked(playlistId);
 	}
 
 	return (
-		<div className={styles.playlistBtn} onClick={onPlaylistClick}>
+		<div
+			id={`playlist${playlistId}`}
+			className={`playlist ${styles.playlistBtn}`}
+			onClick={onPlaylistClick}
+		>
 			<h3>{name}</h3>
 			<pre>{playlistId}</pre>
 			<pre>{tracksAsNumbers.length} songs.</pre>
