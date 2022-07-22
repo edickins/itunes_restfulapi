@@ -3,6 +3,7 @@ import axios from 'axios';
 import FileUpload from './components/FileUpload';
 import Playlists from './components/Playlists';
 import Tracklist from './components/Tracklist';
+import BlankingLayer from './components/BlankingLayer';
 import './css/styles.css';
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
 			<h4 className='display-4 text-center mb-4'>iTunes library</h4>
 			{/* <FileUpload /> */}
 			<Playlists playlists={playlists} onPlaylistClicked={onPlaylistClicked} />
+			<BlankingLayer tracklistOpen={tracklistOpen} />
 			<Tracklist
 				name={selectedPlaylist.name ? selectedPlaylist.name : ''}
 				description={

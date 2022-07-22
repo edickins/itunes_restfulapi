@@ -4,43 +4,34 @@ import TrackItem from './TrackItem';
 import { nanoid } from 'nanoid';
 
 export default function Playlist(props) {
-	const { name, playlistId } = props.playlist;
-	const [tracksAsNumbers, setTracksAsNumbers] = React.useState(
-		props.playlist.tracks
-	);
-	const [tracks, setTracks] = React.useState([]);
-	const [playlistEls, setPlaylistEls] = React.useState([]);
+	const { name, playlistId, description } = props.playlist;
 
-	//TODO - Playlist still holds reference to 'tracks' array, but it is unlikely
-	// that it will be where tracks are rendered. Review this.
-	/* React.useEffect(() => {
-		// console.log(`tracks.useEffect tracks: ${tracks[0].data.data[0].name}`);
-		setPlaylistEls(
-			tracks.map(track => {
-				if (track.data && track.data.data && track.data.data.length > 0) {
-					return <TrackItem data={track.data.data[0]} key={nanoid()} />;
-				} else {
-					return <TrackItem data={[]} key={nanoid()} />;
-				}
-			})
-		);
-	}, []); */
+	const colours = ['colour1', 'colour2', 'colour3', 'colour4'];
 
+	const [playlistLength, setPlaylistLength] = React.useState(0);
+
+	/* event handlers */
 	function onPlaylistClick(e) {
 		e.preventDefault();
 		props.onPlaylistClicked(playlistId);
 	}
 
+	/* display functions */
+	function getRandomColour() {
+		const rand = Math.floor(Math.random() * colours.length);
+		return colours[rand];
+	}
+
 	return (
 		<div
 			id={`playlist${playlistId}`}
-			className={`playlist playlistBtn`}
+			className={`playlist playlistBtn ${getRandomColour()}`}
 			onClick={onPlaylistClick}
 		>
-			<h3>{name}</h3>
-			<pre>{playlistId}</pre>
-			<pre>{tracksAsNumbers.length} songs.</pre>
-			{/* 			{playlistEls} */}
+			<h3 className='playlistName'>{name}</h3>
+			<p className='playlistDescription'>{description}</p>
+			<hr />
+			<p className='playlistInfo'>{props.playlist.tracks.length} songs.</p>
 		</div>
 	);
 }

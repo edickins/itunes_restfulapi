@@ -8,11 +8,83 @@ html {
 
 body {
 	height: 100%;
+	font-family: 'Chivo', Arial, Helvetica, sans-serif;
+	margin: 0;
+	background-color: #fff;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 #root {
 	width: 100%;
 }
+
+/* typography */
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+.playlistBtn {
+	color: #fff;
+}
+
+.playlistName {
+	font-size: 2rem;
+	font-weight: 700;
+}
+
+.playlistDescription {
+	font-size: 1rem;
+	line-height: 1.2;
+}
+
+.playlistInfo {
+	font-size: 0.875rem;
+	font-weight: 300;
+}
+
+/* colours */
+.colour1 {
+	background-color: #a0a603;
+}
+
+.colour2 {
+	background-color: #f2b705;
+}
+
+.colour3 {
+	background-color: #f27405;
+}
+
+.colour4 {
+	background-color: #f25c05;
+}
+
+/* blanking layer */
+.blankingLayer {
+	position: fixed;
+	width: 100%;
+	display: none;
+	opacity: 0;
+
+	transition-timing-function: linear;
+	transition-duration: 0.2s;
+	transition-property: opacity;
+
+	background-color: rgba(0, 0, 0, 0.8);
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.blankingLayer.open {
+	display: block;
+	opacity: 1;
+}
+
 /* playlists */
 
 .playlistsContainer {
@@ -24,15 +96,14 @@ body {
 
 .playlistBtn {
 	padding: 2em;
-	background-color: aliceblue;
 	border-radius: 10px;
-	border: 2px solid palegreen;
+	border: 2px solid #736002;
 }
 
 .playlistBtn:hover,
 .playlistBtn:focus,
 .playlistBtn.selected {
-	background-color: cadetblue;
+	background-color: #736002;
 }
 
 /* tracklist */
@@ -54,7 +125,6 @@ body {
 	transition-duration: 0.5s;
 	transition-property: all;
 
-	background-color: rgba(0, 0, 0, 0.8);
 	top: 0;
 	left: 0;
 	bottom: 0;
