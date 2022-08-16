@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@johnpaulvaughan/itunes-music-library-tracks": "^1.1.0",
-    "nanoid": "^4.0.0"
-  }
-}

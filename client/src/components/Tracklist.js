@@ -28,15 +28,17 @@ export default function PlaylistTracks(props) {
 			<button id='closeTracklistBtn' onClick={onCloseBtnClicked}>
 				&times;
 			</button>
-			<div className='playlistInfo'>
-				<h1 className='playlistTitle'>{name}</h1>
-				<p className='playlistStats'>
-					<span className='totalSongs'>{tracks.length}</span>
-					<span className='playlistDuration'></span>
-				</p>
-				<p className='playlistDescription'>{description}</p>
+			<div className='scrolling'>
+				<div className='playlistInfo'>
+					<h1 className='playlistTitle'>{name}</h1>
+					<p className='playlistStats'>
+						<span className='totalSongs'>{tracks.length}</span>
+						<span className='playlistDuration'></span>
+					</p>
+					<p className='playlistDescription'>{description}</p>
+				</div>
+				<div className='playlistTracks'>{tracksEls}</div>
 			</div>
-			<div className='playlistTracks'>{tracksEls}</div>
 		</div>
 	);
 }
