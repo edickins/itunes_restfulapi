@@ -82,7 +82,17 @@ const App = () => {
 		try {
 			let response = await axios.get(baseURL);
 			if (response.data.success === true) {
-				setPlaylists(response.data.data);
+				if (response.data.data.length > 0) {
+					const trimmedPlaylists = response.data.data.map(playlist => {
+						if (playlist.description.length > 350) {
+							playlist.description = playlist.description.slice(0, 350);
+							playlist.description += ' [...]';
+							console.log(playlist.description);
+						}
+						return playlist;
+					});
+					setPlaylists(trimmedPlaylists);
+				}
 			}
 		} catch (err) {
 			console.log(err);

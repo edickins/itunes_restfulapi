@@ -40,9 +40,9 @@ code {
 	line-height: 1.2;
 
 	max-height: 30px;
-	transition-duration: 2s;
+	transition-duration: 200ms;
 	transition-property: max-height;
-	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+	transition-timing-function: linear;
 
 	white-space: nowrap;
 	overflow: hidden;
@@ -53,7 +53,7 @@ code {
 	white-space: initial;
 	overflow: initial;
 	text-overflow: initial;
-	max-height: 765px;
+	max-height: 240px;
 }
 
 .playlistInfo {
@@ -107,6 +107,7 @@ code {
 	display: grid;
 	row-gap: 1em;
 	column-gap: 1em;
+	align-items: start;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
@@ -117,18 +118,11 @@ code {
 .playlistBtn {
 	height: auto;
 	color: #fff;
-	max-height: 400px;
-	transition-duration: 500ms;
-	transition-property: max-height;
-	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+	min-height: 280px;
 
 	padding: 2em;
 	border-radius: 10px;
 	border: 2px solid #736002;
-}
-
-.playlistBtn:hover {
-	max-height: 1200px;
 }
 
 .playlistBtn:hover,
