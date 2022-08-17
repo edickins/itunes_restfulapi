@@ -30,18 +30,30 @@ code {
 		monospace;
 }
 
-.playlistBtn {
-	color: #fff;
-}
-
 .playlistName {
 	font-size: 2rem;
 	font-weight: 700;
 }
 
-.playlistDescription {
+.playlistBtn .playlistDescription {
 	font-size: 1rem;
 	line-height: 1.2;
+
+	max-height: 30px;
+	transition-duration: 2s;
+	transition-property: max-height;
+	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.playlistBtn .playlistDescription:hover {
+	white-space: initial;
+	overflow: initial;
+	text-overflow: initial;
+	max-height: 765px;
 }
 
 .playlistInfo {
@@ -103,9 +115,20 @@ code {
 }
 
 .playlistBtn {
+	height: auto;
+	color: #fff;
+	max-height: 400px;
+	transition-duration: 500ms;
+	transition-property: max-height;
+	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
 	padding: 2em;
 	border-radius: 10px;
 	border: 2px solid #736002;
+}
+
+.playlistBtn:hover {
+	max-height: 1200px;
 }
 
 .playlistBtn:hover,
@@ -133,7 +156,7 @@ code {
 
 	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 	transition-duration: 0.5s;
-	transition-property: all;
+	transition-property: transform;
 
 	top: 0;
 	left: 0;
