@@ -8,7 +8,7 @@ import './css/styles.css';
 
 const App = () => {
 	const [playlists, setPlaylists] = React.useState([]);
-	const [selectedPlaylistId, setSelectedPlaylistId] = React.useState('');
+	const [selectedPlaylistId, setSelectedPlaylistId] = React.useState(null);
 	const [selectedPlaylist, setSelectedPlaylist] = React.useState({});
 	const [selectedTracklist, setSelectedTracklist] = React.useState([]);
 	const [tracklistOpen, setTracklistOpen] = React.useState(false);
@@ -18,16 +18,30 @@ const App = () => {
 		getPlaylists();
 	}, []);
 
+	/* respond to selectedPlaylistId being set after user clicks on a playlist */
 	React.useEffect(() => {
-		if (playlists.length === 0) return;
-		getTracks(selectedPlaylistId);
-		setSelectedPlaylist(
-			playlists.find(playlist => {
-				return playlist.playlistId === selectedPlaylistId;
-			})
-		);
-		setTracklistOpen(true);
-	}, [selectedPlaylistId]);
+		async function getAllTracks() {
+			if (selectedPlaylistId === null) return;
+			const baseURL = '/api/v1/playlistTracks';
+			try {
+				let response = await axios.get(`${baseURL}/${selectedPlaylistId}`);
+				if (response.data.success === true) {
+					setSelectedTracklist(response.data.data);
+					setSelectedPlaylist(
+						playlists.find(playlist => {
+							return playlist.playlistId === selectedPlaylistId;
+						})
+					);
+					setTracklistOpen(true);
+					enableAppScrolling(false);
+				}
+			} catch (err) {
+				console.log(err);
+			}
+		}
+
+		getAllTracks(selectedPlaylistId);
+	}, [selectedPlaylistId, playlists]);
 
 	/* render */
 	return (
@@ -37,10 +51,7 @@ const App = () => {
 			<Playlists playlists={playlists} onPlaylistClicked={onPlaylistClicked} />
 			<BlankingLayer tracklistOpen={tracklistOpen} />
 			<Tracklist
-				name={selectedPlaylist.name ? selectedPlaylist.name : ''}
-				description={
-					selectedPlaylist.description ? selectedPlaylist.description : ''
-				}
+				selectedPlaylist={selectedPlaylist}
 				tracks={selectedTracklist}
 				tracklistOpen={tracklistOpen}
 				onCloseTracklistClicked={onCloseTracklistClicked}
@@ -55,21 +66,16 @@ const App = () => {
 
 	function onCloseTracklistClicked() {
 		setTracklistOpen(false);
+		setSelectedPlaylistId(null);
+		enableAppScrolling(true);
+	}
+
+	function enableAppScrolling(allow) {
+		console.log(`enableAppScrolling`);
+		document.body.classList.toggle('blankingLayerOpen');
 	}
 
 	/* API calls */
-	async function getTracks() {
-		if (selectedPlaylistId === '') return;
-		const baseURL = '/api/v1/playlistTracks';
-		try {
-			let response = await axios.get(`${baseURL}/${selectedPlaylistId}`);
-			if (response.data.success === true) {
-				setSelectedTracklist(response.data.data);
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	}
 
 	async function getPlaylists() {
 		const baseURL = '/api/v1/playlists';
