@@ -15,7 +15,7 @@ const artists = require('./routes/artists');
 const tracks = require('./routes/tracks');
 const albums = require('./routes/albums');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 //connect to database
 connectDB();
