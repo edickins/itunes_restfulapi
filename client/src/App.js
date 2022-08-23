@@ -47,7 +47,7 @@ const App = () => {
 	return (
 		<div className='container mt-4'>
 			<h4 className='display-4 text-center mb-4'>iTunes library</h4>
-			{playlists.length === 0 && <FileUpload />}
+			{<FileUpload />}
 			{playlists.length > 0 && (
 				<>
 					<Playlists
