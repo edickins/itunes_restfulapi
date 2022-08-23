@@ -11,7 +11,7 @@ export default function Playlists(props) {
 		if (playlists.length === 0) return;
 		setPlaylistsEls(
 			playlists.map(playlist => {
-				if (playlist.tracks.length > 0 && playlist.tracks.length < 200) {
+				if (playlist.tracks.length > 0) {
 					return (
 						<Playlist
 							playlist={playlist}

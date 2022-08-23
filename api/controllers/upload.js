@@ -1,5 +1,4 @@
 const formidable = require('formidable');
-const iTunesLibrary = require('../modules/loaders/itunesPlaylistGenerator.js');
 const fs = require('fs-extra');
 const camelCase = require('camelcase');
 const Playlist = require('../models/Playlist');
