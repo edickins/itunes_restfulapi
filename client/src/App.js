@@ -47,15 +47,22 @@ const App = () => {
 	return (
 		<div className='container mt-4'>
 			<h4 className='display-4 text-center mb-4'>iTunes library</h4>
-			{/* <FileUpload /> */}
-			<Playlists playlists={playlists} onPlaylistClicked={onPlaylistClicked} />
-			<BlankingLayer tracklistOpen={tracklistOpen} />
-			<Tracklist
-				selectedPlaylist={selectedPlaylist}
-				tracks={selectedTracklist}
-				tracklistOpen={tracklistOpen}
-				onCloseTracklistClicked={onCloseTracklistClicked}
-			/>
+			{playlists.length === 0 && <FileUpload />}
+			{playlists.length > 0 && (
+				<>
+					<Playlists
+						playlists={playlists}
+						onPlaylistClicked={onPlaylistClicked}
+					/>
+					<BlankingLayer tracklistOpen={tracklistOpen} />
+					<Tracklist
+						selectedPlaylist={selectedPlaylist}
+						tracks={selectedTracklist}
+						tracklistOpen={tracklistOpen}
+						onCloseTracklistClicked={onCloseTracklistClicked}
+					/>
+				</>
+			)}
 		</div>
 	);
 
@@ -71,7 +78,6 @@ const App = () => {
 	}
 
 	function enableAppScrolling(allow) {
-		console.log(`enableAppScrolling`);
 		document.body.classList.toggle('blankingLayerOpen');
 	}
 
@@ -87,7 +93,6 @@ const App = () => {
 						if (playlist.description.length > 350) {
 							playlist.description = playlist.description.slice(0, 350);
 							playlist.description += ' [...]';
-							console.log(playlist.description);
 						}
 						return playlist;
 					});

@@ -1,7 +1,7 @@
 const Playlist = require('../models/Playlist');
 const Track = require('../models/Track');
 
-// @desc GET a single playlist
+// @desc GET all tracks from a single playlist
 // @route GET /api/v1/playlists/:id
 // @token public
 exports.getPlaylistTracks = async (req, res) => {
