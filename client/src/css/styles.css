@@ -16,7 +16,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-body.blankingLayerOpen {
+body.noScrolling {
 	overflow-y: hidden;
 }
 
@@ -94,6 +94,24 @@ code {
 	left: 0;
 	bottom: 0;
 	right: 0;
+}
+
+/* loading layer */
+.loadingLayer {
+	position: fixed;
+	width: 100%;
+	display: none;
+	background-color: rgba(20, 20, 20, 0.3);
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.loadingLayer.loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .blankingLayer.open {

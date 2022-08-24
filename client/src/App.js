@@ -4,6 +4,7 @@ import FileUpload from './components/FileUpload';
 import Playlists from './components/Playlists';
 import Tracklist from './components/Tracklist';
 import BlankingLayer from './components/BlankingLayer';
+import LoadingLayer from './components/LoadingLayer';
 import './css/styles.css';
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
 	const [selectedPlaylist, setSelectedPlaylist] = React.useState({});
 	const [selectedTracklist, setSelectedTracklist] = React.useState([]);
 	const [tracklistOpen, setTracklistOpen] = React.useState(false);
+	const [isLoading, setIsLoading] = React.useState(true);
 
 	/* get playlists when App loads */
 	React.useEffect(() => {
@@ -22,6 +24,7 @@ const App = () => {
 	React.useEffect(() => {
 		async function getAllTracks() {
 			if (selectedPlaylistId === null) return;
+			setIsLoading(true);
 			const baseURL = '/api/v1/playlistTracks';
 			try {
 				let response = await axios.get(`${baseURL}/${selectedPlaylistId}`);
@@ -32,8 +35,8 @@ const App = () => {
 							return playlist.playlistId === selectedPlaylistId;
 						})
 					);
+					setIsLoading(false);
 					setTracklistOpen(true);
-					enableAppScrolling(false);
 				}
 			} catch (err) {
 				console.log(err);
@@ -42,6 +45,11 @@ const App = () => {
 
 		getAllTracks(selectedPlaylistId);
 	}, [selectedPlaylistId, playlists]);
+
+	/* respond to data loading or completing loading */
+	React.useEffect(() => {
+		enableAppScrolling(isLoading || tracklistOpen);
+	}, [isLoading, tracklistOpen]);
 
 	/* render */
 	return (
@@ -61,6 +69,7 @@ const App = () => {
 						tracklistOpen={tracklistOpen}
 						onCloseTracklistClicked={onCloseTracklistClicked}
 					/>
+					<LoadingLayer isLoading={isLoading} />
 				</>
 			)}
 		</div>
@@ -74,17 +83,28 @@ const App = () => {
 	function onCloseTracklistClicked() {
 		setTracklistOpen(false);
 		setSelectedPlaylistId(null);
-		enableAppScrolling(true);
 	}
 
 	function enableAppScrolling(allow) {
-		document.body.classList.toggle('blankingLayerOpen');
+		const body = document.body;
+		if (allow === true) {
+			if (!body.classList.contains('noScrolling')) {
+				body.classList.add('noScrolling');
+			}
+		}
+
+		if (allow === false) {
+			if (body.classList.contains('noScrolling')) {
+				body.classList.remove('noScrolling');
+			}
+		}
 	}
 
 	/* API calls */
 
 	async function getPlaylists() {
 		const baseURL = '/api/v1/playlists';
+		setIsLoading(true);
 		try {
 			let response = await axios.get(baseURL);
 			if (response.data.success === true) {
@@ -97,6 +117,7 @@ const App = () => {
 						return playlist;
 					});
 					setPlaylists(trimmedPlaylists);
+					setIsLoading(false);
 				}
 			}
 		} catch (err) {
