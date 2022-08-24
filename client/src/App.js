@@ -22,29 +22,10 @@ const App = () => {
 
 	/* respond to selectedPlaylistId being set after user clicks on a playlist */
 	React.useEffect(() => {
-		async function getAllTracks() {
-			if (selectedPlaylistId === null) return;
-			setIsLoading(true);
-			const baseURL = '/api/v1/playlistTracks';
-			try {
-				let response = await axios.get(`${baseURL}/${selectedPlaylistId}`);
-				if (response.data.success === true) {
-					setSelectedTracklist(response.data.data);
-					setSelectedPlaylist(
-						playlists.find(playlist => {
-							return playlist.playlistId === selectedPlaylistId;
-						})
-					);
-					setIsLoading(false);
-					setTracklistOpen(true);
-				}
-			} catch (err) {
-				console.log(err);
-			}
-		}
-
-		getAllTracks(selectedPlaylistId);
-	}, [selectedPlaylistId, playlists]);
+		if (selectedPlaylistId === null) return;
+		setIsLoading(true);
+		setTracklistOpen(true);
+	}, [selectedPlaylistId]);
 
 	/* respond to data loading or completing loading */
 	React.useEffect(() => {
@@ -64,10 +45,10 @@ const App = () => {
 					/>
 					<BlankingLayer tracklistOpen={tracklistOpen} />
 					<Tracklist
-						selectedPlaylist={selectedPlaylist}
-						tracks={selectedTracklist}
 						tracklistOpen={tracklistOpen}
+						selectedPlaylistId={selectedPlaylistId}
 						onCloseTracklistClicked={onCloseTracklistClicked}
+						setIsLoading={setIsLoading}
 					/>
 					<LoadingLayer isLoading={isLoading} />
 				</>
@@ -86,6 +67,7 @@ const App = () => {
 	}
 
 	function enableAppScrolling(allow) {
+		console.log(`enableScrolling ${allow}`);
 		const body = document.body;
 		if (allow === true) {
 			if (!body.classList.contains('noScrolling')) {
