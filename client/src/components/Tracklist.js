@@ -3,22 +3,30 @@ import TrackItem from './TrackItem';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
 export default function PlaylistTracks(props) {
+	/*props*/
+	const { selectedPlaylistId, tracklistIsOpen, setIsLoading } = props;
+	/*useState*/
 	const [tracks, setTracks] = React.useState([]);
 	const [tracksEls, setTracksEls] = React.useState([]);
 	const [selectedPlaylistName, setSelectedPlaylistName] = React.useState('');
 	const [selectedPlaylistDescription, setSelectedPlaylistDescription] =
 		React.useState('');
 	const [totalPlaylistTracks, setTotalPlaylistTracks] = React.useState(0);
-
-	const { selectedPlaylistId, tracklistOpen, setIsLoading } = props;
+	/*pagination props*/
+	const LIMIT = 15;
+	const [currentPage, setCurrentPage] = React.useState(1);
 
 	React.useEffect(() => {
+		console.log(`Tracklist.js useEffect on selectedPlaylistId change`);
 		async function getAllTracks() {
 			if (selectedPlaylistId === null) return;
 			setIsLoading(true);
 			const baseURL = '/api/v1/playlistTracks';
+			const queryString = `?page=${currentPage}&limit=${LIMIT}`;
 			try {
-				let response = await axios.get(`${baseURL}/${selectedPlaylistId}`);
+				let response = await axios.get(
+					`${baseURL}/${selectedPlaylistId}${queryString}`
+				);
 				if (response.data.success === true) {
 					setIsLoading(false);
 					setTracks(response.data.data);
@@ -31,7 +39,7 @@ export default function PlaylistTracks(props) {
 			}
 		}
 		getAllTracks(selectedPlaylistId);
-	}, [selectedPlaylistId, setIsLoading]);
+	}, [selectedPlaylistId, setIsLoading, currentPage]);
 
 	React.useEffect(() => {
 		if (tracks) {
@@ -50,7 +58,7 @@ export default function PlaylistTracks(props) {
 	}
 
 	return (
-		<div className={`tracklistContainer ${tracklistOpen ? 'open' : ''}`}>
+		<div className={`tracklistContainer ${tracklistIsOpen ? 'open' : ''}`}>
 			<button id='closeTracklistBtn' onClick={onCloseBtnClicked}>
 				&times;
 			</button>

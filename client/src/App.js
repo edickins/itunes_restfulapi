@@ -10,9 +10,7 @@ import './css/styles.css';
 const App = () => {
 	const [playlists, setPlaylists] = React.useState([]);
 	const [selectedPlaylistId, setSelectedPlaylistId] = React.useState(null);
-	const [selectedPlaylist, setSelectedPlaylist] = React.useState({});
-	const [selectedTracklist, setSelectedTracklist] = React.useState([]);
-	const [tracklistOpen, setTracklistOpen] = React.useState(false);
+	const [tracklistIsOpen, setTracklistIsOpen] = React.useState(false);
 	const [isLoading, setIsLoading] = React.useState(true);
 
 	/* get playlists when App loads */
@@ -23,14 +21,14 @@ const App = () => {
 	/* respond to selectedPlaylistId being set after user clicks on a playlist */
 	React.useEffect(() => {
 		if (selectedPlaylistId === null) return;
-		setIsLoading(true);
-		setTracklistOpen(true);
+		// setIsLoading(true);
+		setTracklistIsOpen(true);
 	}, [selectedPlaylistId]);
 
 	/* respond to data loading or completing loading */
 	React.useEffect(() => {
-		enableAppScrolling(isLoading || tracklistOpen);
-	}, [isLoading, tracklistOpen]);
+		enableAppScrolling(isLoading || tracklistIsOpen);
+	}, [isLoading, tracklistIsOpen]);
 
 	/* render */
 	return (
@@ -43,9 +41,9 @@ const App = () => {
 						playlists={playlists}
 						onPlaylistClicked={onPlaylistClicked}
 					/>
-					<BlankingLayer tracklistOpen={tracklistOpen} />
+					<BlankingLayer tracklistIsOpen={tracklistIsOpen} />
 					<Tracklist
-						tracklistOpen={tracklistOpen}
+						tracklistIsOpen={tracklistIsOpen}
 						selectedPlaylistId={selectedPlaylistId}
 						onCloseTracklistClicked={onCloseTracklistClicked}
 						setIsLoading={setIsLoading}
@@ -62,7 +60,7 @@ const App = () => {
 	}
 
 	function onCloseTracklistClicked() {
-		setTracklistOpen(false);
+		setTracklistIsOpen(false);
 		setSelectedPlaylistId(null);
 	}
 
