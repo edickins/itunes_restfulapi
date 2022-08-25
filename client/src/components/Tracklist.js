@@ -1,5 +1,6 @@
 import React from 'react';
 import TrackItem from './TrackItem';
+import Pagination from './Pagination';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
 export default function PlaylistTracks(props) {
@@ -15,6 +16,7 @@ export default function PlaylistTracks(props) {
 	/*pagination props*/
 	const LIMIT = 15;
 	const [currentPage, setCurrentPage] = React.useState(1);
+	const [totalPages, setTotalPages] = React.useState(0);
 
 	React.useEffect(() => {
 		console.log(`Tracklist.js useEffect on selectedPlaylistId change`);
@@ -30,6 +32,7 @@ export default function PlaylistTracks(props) {
 				if (response.data.success === true) {
 					setIsLoading(false);
 					setTracks(response.data.data);
+					setTotalPages(response.data.totalPages);
 					setSelectedPlaylistName(response.data.playlistName);
 					setSelectedPlaylistDescription(response.data.playlistDescription);
 					setTotalPlaylistTracks(response.data.totalTracks);
@@ -53,6 +56,8 @@ export default function PlaylistTracks(props) {
 
 	/* button functions */
 	function onCloseBtnClicked(e) {
+		setCurrentPage(1);
+		setTracks([]);
 		e.preventDefault();
 		props.onCloseTracklistClicked();
 	}
@@ -71,7 +76,14 @@ export default function PlaylistTracks(props) {
 				<p className='playlistDescription'>{selectedPlaylistDescription}</p>
 			</div>
 			<div className='scrolling'>
-				<div className='playlistTracks'>{tracksEls}</div>
+				<div className='playlistTracks'>
+					<Pagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						changePage={setCurrentPage}
+					/>
+					{tracksEls}
+				</div>
 			</div>
 		</div>
 	);

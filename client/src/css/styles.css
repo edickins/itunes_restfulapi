@@ -91,7 +91,7 @@ code {
 	transition-duration: 0.2s;
 	transition-property: opacity;
 
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.9);
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -186,4 +186,33 @@ code {
 .trackTitle {
 	color: #fff;
 	font-size: 1.2rem;
+}
+
+/*pagination*/
+.pagination {
+	margin-bottom: 1em;
+}
+
+.pagination button {
+	border-radius: 5px;
+	margin-right: 0.5em;
+	cursor: pointer;
+	padding: 0.125em 0.5em;
+	font-size: 1.5rem;
+}
+
+.pagination button:hover {
+	background-color: rgba(200, 200, 200, 0.95);
+}
+
+.pagination button:disabled {
+	background-color: rgba(100, 100, 100, 0.3);
+	color: #fff;
+	cursor: not-allowed;
+}
+
+.pagination button.currentPage {
+	border: #f25c05 solid 2px;
+	/* background-color: #f2b705; */
+	color: #fff;
 }
