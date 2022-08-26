@@ -32,9 +32,34 @@ const App = () => {
 
 	/* render */
 	return (
-		<div className='container mt-4'>
-			<h4 className='display-4 text-center mb-4'>iTunes library</h4>
-			{<FileUpload />}
+		<main>
+			<h1 className='pageTitle'>iTunes library</h1>
+			<p>These are the playlists in my iTunes library.</p>
+			<p>
+				Once a week I upload an .xml export of my iTunes library to my server,
+				and the contents are stored in a database.
+			</p>
+			<p>
+				I used{' '}
+				<a href='http://expressjs.com/' target='_blank'>
+					express
+				</a>{' '}
+				to build a RESTful API which serves this data via endpoints. The
+				frontend (this page) was built in{' '}
+				<a href='https://reactjs.org/' target='_blank'>
+					reactjs
+				</a>
+				.
+			</p>
+			<p>
+				If you are interested, the code for both the frontend and backend are in
+				this repository{' '}
+				<a href='https://github.com/edickins/itunes_restfulapi' target='_blank'>
+					itunes_restfulAPI
+				</a>
+				.
+			</p>
+			{/* {<FileUpload />} */}
 			{playlists.length > 0 && (
 				<>
 					<Playlists
@@ -51,7 +76,7 @@ const App = () => {
 					<LoadingLayer isLoading={isLoading} />
 				</>
 			)}
-		</div>
+		</main>
 	);
 
 	/* click handlers */
@@ -89,14 +114,17 @@ const App = () => {
 			let response = await axios.get(baseURL);
 			if (response.data.success === true) {
 				if (response.data.data.length > 0) {
-					const trimmedPlaylists = response.data.data.map(playlist => {
-						if (playlist.description.length > 350) {
-							playlist.description = playlist.description.slice(0, 350);
-							playlist.description += ' [...]';
+					const descriptionLimitedPlaylists = response.data.data.map(
+						playlist => {
+							if (playlist.description.length > 350) {
+								playlist.description = playlist.description.slice(0, 350);
+								playlist.description += ' [...]';
+							}
+							return playlist;
 						}
-						return playlist;
-					});
-					setPlaylists(trimmedPlaylists);
+					);
+
+					setPlaylists(descriptionLimitedPlaylists);
 					setIsLoading(false);
 				}
 			}

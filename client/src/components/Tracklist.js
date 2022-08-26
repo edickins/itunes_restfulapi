@@ -58,6 +58,7 @@ export default function PlaylistTracks(props) {
 	function onCloseBtnClicked(e) {
 		setCurrentPage(1);
 		setTracks([]);
+		setSelectedPlaylistDescription('');
 		e.preventDefault();
 		props.onCloseTracklistClicked();
 	}
@@ -68,23 +69,19 @@ export default function PlaylistTracks(props) {
 				&times;
 			</button>
 			<div className='playlistInfo'>
-				<h1 className='playlistTitle'>{selectedPlaylistName}</h1>
+				<h1 className='playlistTitle'>Playlist name: {selectedPlaylistName}</h1>
 				<p className='playlistStats'>
-					<span className='totalSongs'>{totalPlaylistTracks}</span>
+					<span className='totalSongs'>total songs: {totalPlaylistTracks}</span>
 					<span className='playlistDuration'></span>
 				</p>
 				<p className='playlistDescription'>{selectedPlaylistDescription}</p>
 			</div>
-			<div className='scrolling'>
-				<div className='playlistTracks'>
-					<Pagination
-						currentPage={currentPage}
-						totalPages={totalPages}
-						changePage={setCurrentPage}
-					/>
-					{tracksEls}
-				</div>
-			</div>
+			<Pagination
+				currentPage={currentPage}
+				totalPages={totalPages}
+				changePage={setCurrentPage}
+			/>
+			<div className='playlistTracks'>{tracksEls}</div>
 		</div>
 	);
 }

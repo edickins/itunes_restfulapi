@@ -8,10 +8,11 @@ html {
 
 body {
 	height: auto;
+	color: #fff;
 	font-family: 'Chivo', Arial, Helvetica, sans-serif;
 	margin: 0;
 	padding-right: 15px;
-	background-color: #fff;
+	background-color: rgb(38, 36, 36);
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -26,41 +27,21 @@ body.noScrolling {
 	width: 100%;
 }
 
+main {
+	padding: 2em;
+}
+
 /* typography */
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+
+.pageTitle {
+	color: #fff;
+	text-align: center;
 }
 
 .playlistName {
-	font-size: 2rem;
+	font-size: 1.4rem;
 	font-weight: 700;
-}
-
-.playlistBtn .playlistDescription {
-	font-size: 1rem;
-	line-height: 1.2;
-
-	max-height: 30px;
-	transition-duration: 200ms;
-	transition-property: max-height;
-	transition-timing-function: linear;
-
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.playlistBtn .playlistDescription:hover {
-	white-space: initial;
-	overflow: initial;
-	text-overflow: initial;
-	max-height: 240px;
-}
-
-.playlistInfo {
-	font-size: 0.875rem;
-	font-weight: 300;
+	line-height: 1.1;
 }
 
 /* colours */
@@ -84,18 +65,23 @@ code {
 .blankingLayer {
 	position: fixed;
 	width: 100%;
-	display: none;
+	visibility: hidden;
 	opacity: 0;
 
 	transition-timing-function: linear;
-	transition-duration: 0.2s;
+	transition-duration: 300ms;
 	transition-property: opacity;
 
-	background-color: rgba(0, 0, 0, 0.9);
+	background-color: rgba(0, 0, 0, 0.95);
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
+}
+
+.blankingLayer.open {
+	visibility: visible;
+	opacity: 1;
 }
 
 /* loading layer */
@@ -116,11 +102,6 @@ code {
 	align-items: center;
 }
 
-.blankingLayer.open {
-	display: block;
-	opacity: 1;
-}
-
 /* playlists */
 
 .playlistsContainer {
@@ -138,9 +119,9 @@ code {
 .playlistBtn {
 	height: auto;
 	color: #fff;
-	min-height: 280px;
+	min-height: 230px;
 
-	padding: 2em;
+	padding: 1em;
 	border-radius: 10px;
 	border: 2px solid #736002;
 }
@@ -151,22 +132,54 @@ code {
 	background-color: #736002;
 }
 
+.playlistBtn .playlistDescription {
+	font-size: 1rem;
+	line-height: 1.2;
+
+	max-height: 30px;
+	transition-duration: 200ms;
+	transition-property: max-height;
+	transition-timing-function: linear;
+
+	/*add ellipse*/
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.playlistBtn .playlistDescription:hover {
+	white-space: initial;
+	overflow: initial;
+	text-overflow: initial;
+	max-height: 240px;
+}
+
+.playlistInfo {
+	font-size: 0.875rem;
+	font-weight: 300;
+}
+
 /* tracklist */
 .playlistInfo {
 	color: #fff;
 }
 #closeTracklistBtn {
 	position: absolute;
-	right: 2em;
-	top: 2em;
-	font-size: 3rem;
+	right: 1em;
+	top: 1em;
+	font-size: 1.5rem;
+	padding: 0.1em 0.5em;
+	border-radius: 5px;
 }
 
 .tracklistContainer {
+	display: flex;
+	flex-direction: column;
 	position: fixed;
 	width: 100%;
+	visibility: hidden;
 
-	padding: 2em;
+	padding: 1.5em 3em;
 
 	transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 	transition-duration: 0.5s;
@@ -178,19 +191,37 @@ code {
 	transform: translateX(100%);
 }
 
-.open {
+.tracklistContainer.open {
 	transform: translateX(0);
+	visibility: visible;
+}
+
+.playlistTracks {
+	overflow-y: auto;
 }
 
 /* trackItem */
-.trackTitle {
+.trackDetails {
 	color: #fff;
 	font-size: 1.2rem;
 }
 
+.artistName {
+	font-weight: 700;
+}
+
+.trackName {
+	font-weight: 700;
+	color: #f27405;
+}
+
+.albumName {
+	color: #736002;
+}
+
 /*pagination*/
 .pagination {
-	margin-bottom: 1em;
+	margin-bottom: 2em;
 }
 
 .pagination button {
@@ -198,7 +229,7 @@ code {
 	margin-right: 0.5em;
 	cursor: pointer;
 	padding: 0.125em 0.5em;
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 }
 
 .pagination button:hover {
