@@ -12,7 +12,7 @@ body {
 	font-family: 'Chivo', Arial, Helvetica, sans-serif;
 	margin: 0;
 	padding-right: 15px;
-	background-color: rgb(38, 36, 36);
+	background-color: rgb(188 186 152);
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -216,7 +216,7 @@ main {
 }
 
 .albumName {
-	color: #736002;
+	color: #f2b705;
 }
 
 /*pagination*/

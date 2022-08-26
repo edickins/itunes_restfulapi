@@ -8,7 +8,7 @@ export default function TrackItem(props) {
 		<div>
 			<p className='trackDetails'>
 				<span className='artistName'>{htmlDecode(track.artist)}</span> -{' '}
-				<span className='trackName'>{htmlDecode(track.name)}</span>{' '}
+				<span className='trackName'>{htmlDecode(track.name)}</span> -{' '}
 				<span className='albumName'>{htmlDecode(track.album)}</span>
 			</p>
 		</div>
