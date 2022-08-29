@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { filterPlaylists } from './utils/utils';
 import FileUpload from './components/FileUpload';
 import Playlists from './components/Playlists';
 import Tracklist from './components/Tracklist';
@@ -45,7 +46,7 @@ const App = () => {
 					express
 				</a>{' '}
 				to build a RESTful API which serves this data via endpoints. The
-				frontend (this page) was built in{' '}
+				frontend was built in{' '}
 				<a href='https://reactjs.org/' target='_blank'>
 					reactjs
 				</a>
@@ -114,7 +115,12 @@ const App = () => {
 			let response = await axios.get(baseURL);
 			if (response.data.success === true) {
 				if (response.data.data.length > 0) {
-					const descriptionLimitedPlaylists = response.data.data.map(
+					const playlists = response.data.data;
+					const filteredPlaylists = playlists.filter(playlist => {
+						return filterPlaylists(playlist);
+					});
+
+					const descriptionLimitedPlaylists = filteredPlaylists.map(
 						playlist => {
 							if (playlist.description.length > 350) {
 								playlist.description = playlist.description.slice(0, 350);

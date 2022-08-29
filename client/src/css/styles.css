@@ -8,11 +8,11 @@ html {
 
 body {
 	height: auto;
-	color: #fff;
+	color: #363636;
 	font-family: 'Chivo', Arial, Helvetica, sans-serif;
 	margin: 0;
 	padding-right: 15px;
-	background-color: rgb(188 186 152);
+	background-color: #e8e8e8;
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -34,7 +34,7 @@ main {
 /* typography */
 
 .main__title {
-	color: #fff;
+	color: #363636;
 	text-align: center;
 }
 
@@ -46,19 +46,19 @@ main {
 
 /* colours */
 .colour1 {
-	background-color: #a0a603;
+	background-color: #736002;
 }
 
 .colour2 {
-	background-color: #f2b705;
+	background-color: #f0a967;
 }
 
 .colour3 {
-	background-color: #f27405;
+	background-color: #e87f54;
 }
 
 .colour4 {
-	background-color: #f25c05;
+	background-color: #df5441;
 }
 
 /* blanking layer */
@@ -118,18 +118,19 @@ main {
 
 .playlists__btn {
 	height: auto;
-	color: #fff;
+	color: #e8e8e8;
 	min-height: 230px;
 
 	padding: 1em;
 	border-radius: 10px;
-	border: 2px solid #736002;
+	border: 2px solid #787878;
 }
 
 .playlists__btn:hover,
 .playlists__btn:focus,
 .playlists__btn.selected {
-	background-color: #736002;
+	background-color: #ecc9a8;
+	color: #363636;
 }
 
 .playlists__btn .playlist__description {
