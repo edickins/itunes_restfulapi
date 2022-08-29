@@ -25,6 +25,16 @@ const app = express();
 // Parse JSON bodies for this app. Make sure you put
 app.use(express.json());
 
+// CORS
+app.use(function (req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	);
+	next();
+});
+
 app.get('/', (req, res) => {
 	res.send(`itunes library`);
 });
