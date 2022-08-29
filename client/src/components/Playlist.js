@@ -1,8 +1,5 @@
 import React from 'react';
 import { htmlDecode } from '../utils/utils';
-// import styles from '../css/playlist.module.css';
-import TrackItem from './TrackItem';
-import { nanoid } from 'nanoid';
 
 export default function Playlist(props) {
 	const { name, playlistId, description } = props.playlist;
@@ -23,13 +20,13 @@ export default function Playlist(props) {
 	return (
 		<div
 			id={`playlist${playlistId}`}
-			className={`playlist playlistBtn ${getRandomColour()}`}
+			className={`playlists__btn ${getRandomColour()}`}
 			onClick={onPlaylistClick}
 		>
-			<h3 className='playlistName'>{htmlDecode(name)}</h3>
-			<p className='playlistDescription'>{description}</p>
-			<hr />
-			<p className='playlistInfo'>{props.playlist.tracks.length} songs.</p>
+			<h3 className='playlist__name'>{htmlDecode(name)}</h3>
+			{description && <p className='playlist__description'>{description}</p>}
+			{description && <hr />}
+			<p className='playlist__info'>{props.playlist.tracks.length} songs.</p>
 		</div>
 	);
 }

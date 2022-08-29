@@ -33,12 +33,12 @@ main {
 
 /* typography */
 
-.pageTitle {
+.main__title {
 	color: #fff;
 	text-align: center;
 }
 
-.playlistName {
+.playlist__name {
 	font-size: 1.4rem;
 	font-weight: 700;
 	line-height: 1.1;
@@ -104,7 +104,7 @@ main {
 
 /* playlists */
 
-.playlistsContainer {
+.playlists {
 	display: grid;
 	row-gap: 1em;
 	column-gap: 1em;
@@ -112,11 +112,11 @@ main {
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
-.playlistsContainer.open {
+.playlists.open {
 	height: 100%;
 }
 
-.playlistBtn {
+.playlists__btn {
 	height: auto;
 	color: #fff;
 	min-height: 230px;
@@ -126,13 +126,13 @@ main {
 	border: 2px solid #736002;
 }
 
-.playlistBtn:hover,
-.playlistBtn:focus,
-.playlistBtn.selected {
+.playlists__btn:hover,
+.playlists__btn:focus,
+.playlists__btn.selected {
 	background-color: #736002;
 }
 
-.playlistBtn .playlistDescription {
+.playlists__btn .playlist__description {
 	font-size: 1rem;
 	line-height: 1.2;
 
@@ -147,23 +147,24 @@ main {
 	text-overflow: ellipsis;
 }
 
-.playlistBtn .playlistDescription:hover {
+.playlists__btn .playlist__description:hover {
 	white-space: initial;
 	overflow: initial;
 	text-overflow: initial;
 	max-height: 240px;
 }
 
-.playlistInfo {
+.tracklist__info {
 	font-size: 0.875rem;
 	font-weight: 300;
 }
 
 /* tracklist */
-.playlistInfo {
+.tracklist__info {
 	color: #fff;
 }
-#closeTracklistBtn {
+
+.btn--close-tracklist {
 	position: absolute;
 	right: 1em;
 	top: 1em;
@@ -172,7 +173,7 @@ main {
 	border-radius: 5px;
 }
 
-.tracklistContainer {
+.tracklist {
 	display: flex;
 	flex-direction: column;
 	position: fixed;
@@ -191,12 +192,12 @@ main {
 	transform: translateX(100%);
 }
 
-.tracklistContainer.open {
+.tracklist.open {
 	transform: translateX(0);
 	visibility: visible;
 }
 
-.playlistTracks {
+.tracklist__tracks {
 	overflow-y: auto;
 }
 
@@ -232,17 +233,17 @@ main {
 	font-size: 1.1rem;
 }
 
-.pagination button:hover {
+button:hover {
 	background-color: rgba(200, 200, 200, 0.95);
 }
 
-.pagination button:disabled {
+button :disabled {
 	background-color: rgba(100, 100, 100, 0.3);
 	color: #fff;
 	cursor: not-allowed;
 }
 
-.pagination button.currentPage {
+button.currentPage {
 	border: #f25c05 solid 2px;
 	/* background-color: #f2b705; */
 	color: #fff;

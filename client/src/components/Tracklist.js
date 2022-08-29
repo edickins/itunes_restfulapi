@@ -3,16 +3,16 @@ import TrackItem from './TrackItem';
 import Pagination from './Pagination';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
-export default function PlaylistTracks(props) {
+export default function Tracklist(props) {
 	/*props*/
 	const { selectedPlaylistId, tracklistIsOpen, setIsLoading } = props;
 	/*useState*/
 	const [tracks, setTracks] = React.useState([]);
 	const [tracksEls, setTracksEls] = React.useState([]);
-	const [selectedPlaylistName, setSelectedPlaylistName] = React.useState('');
-	const [selectedPlaylistDescription, setSelectedPlaylistDescription] =
+	const [selectedTracklistName, setSelectedTracklistName] = React.useState('');
+	const [selectedTracklistDescription, setSelectedTracklistDescription] =
 		React.useState('');
-	const [totalPlaylistTracks, setTotalPlaylistTracks] = React.useState(0);
+	const [totalTracklistTracks, setTotalTracklistTracks] = React.useState(0);
 	/*pagination props*/
 	const LIMIT = 15;
 	const [currentPage, setCurrentPage] = React.useState(1);
@@ -33,9 +33,9 @@ export default function PlaylistTracks(props) {
 					setIsLoading(false);
 					setTracks(response.data.data);
 					setTotalPages(response.data.totalPages);
-					setSelectedPlaylistName(response.data.playlistName);
-					setSelectedPlaylistDescription(response.data.playlistDescription);
-					setTotalPlaylistTracks(response.data.totalTracks);
+					setSelectedTracklistName(response.data.playlistName);
+					setSelectedTracklistDescription(response.data.tracklist__description);
+					setTotalTracklistTracks(response.data.totalTracks);
 				}
 			} catch (err) {
 				console.log(err);
@@ -58,30 +58,34 @@ export default function PlaylistTracks(props) {
 	function onCloseBtnClicked(e) {
 		setCurrentPage(1);
 		setTracks([]);
-		setSelectedPlaylistDescription('');
+		setSelectedTracklistDescription('');
 		e.preventDefault();
 		props.onCloseTracklistClicked();
 	}
 
 	return (
-		<div className={`tracklistContainer ${tracklistIsOpen ? 'open' : ''}`}>
-			<button id='closeTracklistBtn' onClick={onCloseBtnClicked}>
+		<div className={`tracklist ${tracklistIsOpen ? 'open' : ''}`}>
+			<button className='btn--close-tracklist' onClick={onCloseBtnClicked}>
 				&times;
 			</button>
-			<div className='playlistInfo'>
-				<h1 className='playlistTitle'>Playlist name: {selectedPlaylistName}</h1>
-				<p className='playlistStats'>
-					<span className='totalSongs'>total songs: {totalPlaylistTracks}</span>
-					<span className='playlistDuration'></span>
+			<div className='tracklist__info'>
+				<h2 className='tracklist__title'>
+					Playlist name: {selectedTracklistName}
+				</h2>
+				<p className='tracklist__stats'>
+					<span className='tracklist__total-songs'>
+						total songs: {totalTracklistTracks}
+					</span>
+					<span className='tracklist__duration'></span>
 				</p>
-				<p className='playlistDescription'>{selectedPlaylistDescription}</p>
+				<p className='tracklist__description'>{selectedTracklistDescription}</p>
 			</div>
 			<Pagination
 				currentPage={currentPage}
 				totalPages={totalPages}
 				changePage={setCurrentPage}
 			/>
-			<div className='playlistTracks'>{tracksEls}</div>
+			<div className='tracklist__tracks'>{tracksEls}</div>
 		</div>
 	);
 }

@@ -26,5 +26,5 @@ export default function Playlists(props) {
 		);
 	}, [playlists, props.onPlaylistClicked]);
 
-	return <div className='playlistsContainer'>{playlistsEls}</div>;
+	return <div className='playlists'>{playlistsEls}</div>;
 }

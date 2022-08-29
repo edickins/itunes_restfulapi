@@ -11,7 +11,7 @@ const Pagination = props => {
 				onClick={() => {
 					changePage(index + 1);
 				}}
-				className={index + 1 === currentPage ? 'currentPage' : ''}
+				className={`${index + 1 === currentPage ? 'currentPage' : ''}`}
 				disabled={index + 1 === currentPage}
 			>
 				{index + 1}
@@ -26,9 +26,7 @@ const Pagination = props => {
 					<button
 						key={startValue + index + 1}
 						disabled={startValue + index + 1 === currentPage}
-						className={
-							startValue + index + 1 === currentPage ? 'currentPage' : ''
-						}
+						className={`${index + 1 === currentPage ? 'currentPage' : ''}`}
 						onClick={() => {
 							changePage(startValue + index + 1);
 						}}

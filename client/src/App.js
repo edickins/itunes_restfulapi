@@ -33,7 +33,7 @@ const App = () => {
 	/* render */
 	return (
 		<main>
-			<h1 className='pageTitle'>iTunes library</h1>
+			<h1 className='main__title'>iTunes library</h1>
 			<p>These are the playlists in my iTunes library.</p>
 			<p>
 				Once a week I upload an .xml export of my iTunes library to my server,
