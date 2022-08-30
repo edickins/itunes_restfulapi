@@ -1,4 +1,5 @@
 export const htmlDecode = input => {
+	if (!input || input === '') input = 'unknown';
 	if (!input || input === null) input = '';
 	let e = document.createElement('div');
 	e.innerHTML = input;

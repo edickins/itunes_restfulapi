@@ -5,8 +5,9 @@ const LoadingLayer = props => {
 	const { isLoading } = props;
 
 	return (
-		<div className={`loadingLayer ${isLoading ? 'loading' : ''}`}>
+		<div className={`loading ${isLoading ? 'loading--loading' : ''}`}>
 			<ReactLoading type='cylon' color='#fff' />
+			<p className='loading__text'>loading...</p>
 		</div>
 	);
 };

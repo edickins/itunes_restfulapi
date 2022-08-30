@@ -26,7 +26,9 @@ const Pagination = props => {
 					<button
 						key={startValue + index + 1}
 						disabled={startValue + index + 1 === currentPage}
-						className={`${index + 1 === currentPage ? 'currentPage' : ''}`}
+						className={`${
+							index + 1 + startValue === currentPage ? 'currentPage' : ''
+						}`}
 						onClick={() => {
 							changePage(startValue + index + 1);
 						}}
@@ -60,6 +62,9 @@ const Pagination = props => {
 				>
 					&#187;
 				</button>
+				<p className='pagination__pagecount'>
+					Page {currentPage} of {totalPages}
+				</p>
 			</div>
 		)
 	);

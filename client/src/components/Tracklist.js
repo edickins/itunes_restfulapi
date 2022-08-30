@@ -1,6 +1,7 @@
 import React from 'react';
 import TrackItem from './TrackItem';
 import Pagination from './Pagination';
+import TracklistDescription from './TracklistDescription';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
 export default function Tracklist(props) {
@@ -19,7 +20,6 @@ export default function Tracklist(props) {
 	const [totalPages, setTotalPages] = React.useState(0);
 
 	React.useEffect(() => {
-		console.log(`Tracklist.js useEffect on selectedPlaylistId change`);
 		async function getAllTracks() {
 			if (selectedPlaylistId === null) return;
 			setIsLoading(true);
@@ -31,10 +31,11 @@ export default function Tracklist(props) {
 				);
 				if (response.data.success === true) {
 					setIsLoading(false);
+					const tracks = response.data.data;
 					setTracks(response.data.data);
 					setTotalPages(response.data.totalPages);
 					setSelectedTracklistName(response.data.playlistName);
-					setSelectedTracklistDescription(response.data.tracklist__description);
+					setSelectedTracklistDescription(response.data.playlistDescription);
 					setTotalTracklistTracks(response.data.totalTracks);
 				}
 			} catch (err) {
@@ -78,13 +79,13 @@ export default function Tracklist(props) {
 					</span>
 					<span className='tracklist__duration'></span>
 				</p>
-				<p className='tracklist__description'>{selectedTracklistDescription}</p>
 			</div>
 			<Pagination
 				currentPage={currentPage}
 				totalPages={totalPages}
 				changePage={setCurrentPage}
 			/>
+			<TracklistDescription description={selectedTracklistDescription} />
 			<div className='tracklist__tracks'>{tracksEls}</div>
 		</div>
 	);
