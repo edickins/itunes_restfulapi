@@ -109,7 +109,7 @@ const App = () => {
 	/* API calls */
 
 	async function getPlaylists() {
-		const baseURL = '/api/v1/playlists';
+		const baseURL = 'https://cdn.bleepbloop.net/itunes/api/v1/playlists';
 		setIsLoading(true);
 		try {
 			let response = await axios.get(baseURL);

@@ -23,7 +23,7 @@ export default function Tracklist(props) {
 		async function getAllTracks() {
 			if (selectedPlaylistId === null) return;
 			setIsLoading(true);
-			const baseURL = '/api/v1/playlistTracks';
+			const baseURL = 'https://cdn.bleepbloop.net/itunes/api/v1/playlistTracks';
 			const queryString = `?page=${currentPage}&limit=${LIMIT}`;
 			try {
 				let response = await axios.get(
