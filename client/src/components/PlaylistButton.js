@@ -4,7 +4,10 @@ import TracklistDescription from './TracklistDescription';
 
 export default function PlaylistButton(props) {
 	const { name, playlistId, description } = props.playlist;
-	const colours = ['colour1', 'colour2', 'colour3', 'colour4'];
+	const colours = ['#736002', '#f0a967', '#e87f54', '#df5441'];
+	const styles = {
+		background: `linear-gradient(to bottom, ${getRandomColour()}, ${getRandomColour()})`,
+	};
 
 	/* event handlers */
 	function onPlaylistClick(e) {
@@ -20,12 +23,13 @@ export default function PlaylistButton(props) {
 	return (
 		<div
 			id={`playlist${playlistId}`}
-			className={`playlists__btn ${getRandomColour()}`}
+			className={`playlists__btn`}
+			style={styles}
 			onClick={onPlaylistClick}
 		>
 			<h3 className='playlist__name'>{htmlDecode(name)}</h3>
-			<TracklistDescription description={description}></TracklistDescription>
 			<p className='playlist__info'>{props.playlist.tracks.length} songs.</p>
+			<TracklistDescription description={description}></TracklistDescription>
 		</div>
 	);
 }

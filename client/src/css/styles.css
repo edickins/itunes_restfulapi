@@ -145,6 +145,8 @@ main {
 	border-radius: 10px;
 	border: 2px solid #787878;
 
+	box-shadow: #848282 3px 3px 5px;
+
 	cursor: pointer;
 }
 
@@ -153,29 +155,12 @@ main {
 .playlists__btn.selected {
 	background-color: #ecc9a8;
 	color: #363636;
+	box-shadow: #848282 2px 2px 5px;
 }
 
 .playlists__btn .playlist__description {
 	font-size: 1rem;
 	line-height: 1.2;
-
-	max-height: 30px;
-	transition-duration: 200ms;
-	transition-property: max-height;
-	transition-timing-function: linear;
-
-	/*add ellipse*/
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.playlists__btn .playlist__description:hover {
-	background-color: #e8e8e8;
-	white-space: initial;
-	overflow: initial;
-	text-overflow: initial;
-	max-height: 240px;
 }
 
 /* tracklist */
@@ -219,8 +204,6 @@ main {
 	display: none;
 	margin: 5px;
 	overflow-y: auto;
-	max-height: 200px;
-	/* color: #c0eea3; */
 }
 
 .tracklist__description-text.showText {
