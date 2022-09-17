@@ -5,8 +5,9 @@ import TracklistDescription from './TracklistDescription';
 export default function PlaylistButton(props) {
 	const { name, playlistId, description } = props.playlist;
 	const colours = ['#736002', '#f0a967', '#e87f54', '#df5441'];
+	const colourObj = getRandomColours(colours);
 	const styles = {
-		background: `linear-gradient(to bottom, ${getRandomColour()}, ${getRandomColour()})`,
+		background: `linear-gradient(to bottom, ${colourObj[0]}, ${colourObj[1]})`,
 	};
 
 	/* event handlers */
@@ -15,9 +16,11 @@ export default function PlaylistButton(props) {
 	}
 
 	/* display functions */
-	function getRandomColour() {
-		const rand = Math.floor(Math.random() * colours.length);
-		return colours[rand];
+	function getRandomColours(colours) {
+		const tempColours = colours;
+		tempColours.sort(() => Math.random() - 0.5);
+
+		return [tempColours[[0]], tempColours[1]];
 	}
 
 	return (

@@ -149,7 +149,7 @@ main {
 	cursor: pointer;
 
 	transition-duration: 200ms;
-	transition-property: color;
+	transition-property: color, transform;
 }
 
 .playlists__btn:hover,
@@ -158,6 +158,8 @@ main {
 	background-color: #ecc9a8;
 	color: #363636;
 	box-shadow: #848282 2px 2px 5px;
+
+	transform: scale(0.95);
 }
 
 .playlists__btn .playlist__description {
