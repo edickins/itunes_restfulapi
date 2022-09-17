@@ -146,8 +146,10 @@ main {
 	border: 2px solid #787878;
 
 	box-shadow: #848282 3px 3px 5px;
-
 	cursor: pointer;
+
+	transition-duration: 200ms;
+	transition-property: color;
 }
 
 .playlists__btn:hover,
@@ -185,6 +187,9 @@ main {
 	margin-bottom: 0;
 
 	cursor: pointer;
+
+	border-radius: 5px;
+	overflow: hidden;
 }
 
 .tracklist__description:hover {

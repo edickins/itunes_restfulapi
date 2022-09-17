@@ -15,7 +15,7 @@ const TracklistDescription = props => {
 								}}
 							>
 								<p className='tracklist__show_description'>
-									{on ? 'Hide description' : 'Show description'}
+									{on ? 'click to close' : 'show description'}
 								</p>
 								<p
 									className={`tracklist__description-text ${
