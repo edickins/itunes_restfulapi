@@ -46,6 +46,16 @@ main {
 	margin: 0.5em 0;
 }
 
+.playlist_arrow {
+	display: none;
+	justify-content: center;
+}
+
+.playlists__btn:hover .playlist_arrow {
+	display: block;
+	text-align: center;
+}
+
 /* colours */
 .colour1 {
 	background-color: #736002;
@@ -155,7 +165,6 @@ main {
 .playlists__btn:hover,
 .playlists__btn:focus,
 .playlists__btn.selected {
-	background-color: #ecc9a8;
 	color: #363636;
 	box-shadow: #848282 2px 2px 5px;
 
@@ -198,6 +207,10 @@ main {
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
+.showText .tracklist__description {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
 .tracklist .tracklist__description {
 	color: #fff;
 }
@@ -213,8 +226,12 @@ main {
 	overflow-y: auto;
 }
 
-.tracklist__description-text.showText {
+.showText .tracklist__description-text {
 	display: block;
+}
+
+.tracklist__show_description {
+	text-align: right;
 }
 
 .btn--close-tracklist {

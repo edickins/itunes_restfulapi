@@ -32,9 +32,8 @@ export default function PlaylistButton(props) {
 		>
 			<h3 className='playlist__name'>{htmlDecode(name)}</h3>
 			<p className='playlist__info'>{props.playlist.tracks.length} songs.</p>
-			<TracklistDescription
-				description={htmlDecode(description)}
-			></TracklistDescription>
+			<TracklistDescription description={htmlDecode(description)} />
+			<p className='playlist_arrow'>➡️</p>
 		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { htmlDecode } from '../utils/utils';
 import Toggle from './Toggle';
 
 const TracklistDescription = props => {
@@ -6,8 +7,8 @@ const TracklistDescription = props => {
 		<Toggle
 			render={({ on, toggle }) => {
 				return (
-					props.description && (
-						<div className='tracklist__description'>
+					props.description !== 'unknown' && (
+						<div className={`tracklist__description ${on ? 'showText' : ''}`}>
 							<div
 								role='button'
 								onClick={event => {
@@ -15,13 +16,11 @@ const TracklistDescription = props => {
 								}}
 							>
 								<p className='tracklist__show_description'>
-									{on ? 'click to close' : 'show description'}
+									{on
+										? htmlDecode('close &#10006;')
+										: htmlDecode('show description')}
 								</p>
-								<p
-									className={`tracklist__description-text ${
-										on ? 'showText' : ''
-									}`}
-								>
+								<p className={`tracklist__description-text `}>
 									{props.description}
 								</p>
 							</div>
