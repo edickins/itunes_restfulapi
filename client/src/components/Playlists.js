@@ -1,5 +1,5 @@
 import React from 'react';
-import Playlist from './Playlist';
+import PlaylistButton from './PlaylistButton';
 import { nanoid } from 'nanoid';
 
 export default function Playlists(props) {
@@ -13,7 +13,7 @@ export default function Playlists(props) {
 			playlists.map(playlist => {
 				if (playlist.tracks.length > 0) {
 					return (
-						<Playlist
+						<PlaylistButton
 							playlist={playlist}
 							key={nanoid()}
 							onPlaylistClicked={props.onPlaylistClicked}

@@ -42,6 +42,8 @@ main {
 	font-size: 1.4rem;
 	font-weight: 700;
 	line-height: 1.1;
+
+	margin: 0.5em 0;
 }
 
 /* colours */
@@ -106,6 +108,20 @@ main {
 	color: #fff;
 }
 
+/* About */
+
+.about__link {
+	text-align: right;
+}
+
+.about__text {
+	display: none;
+}
+
+.about__text.show {
+	display: block;
+}
+
 /* playlists */
 
 .playlists {
@@ -128,6 +144,8 @@ main {
 	padding: 1em;
 	border-radius: 10px;
 	border: 2px solid #787878;
+
+	cursor: pointer;
 }
 
 .playlists__btn:hover,
@@ -153,6 +171,7 @@ main {
 }
 
 .playlists__btn .playlist__description:hover {
+	background-color: #e8e8e8;
 	white-space: initial;
 	overflow: initial;
 	text-overflow: initial;
@@ -175,19 +194,25 @@ main {
 }
 
 .tracklist__description {
+	margin-left: -10px;
+	margin-right: -10px;
+	padding: 10px;
 	margin-bottom: 0;
 
+	cursor: pointer;
+}
+
+.tracklist__description:hover {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.tracklist .tracklist__description {
 	color: #fff;
 }
 
 .tracklist__show_description {
-	color: #60f205;
 	font-weight: 700;
 	margin: 0;
-}
-
-.tracklist__show_description:hover {
-	color: #05f270;
 }
 
 .tracklist__description-text {
@@ -195,7 +220,7 @@ main {
 	margin: 5px;
 	overflow-y: auto;
 	max-height: 200px;
-	color: #c0eea3;
+	/* color: #c0eea3; */
 }
 
 .tracklist__description-text.showText {

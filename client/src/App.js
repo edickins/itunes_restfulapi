@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { filterPlaylists } from './utils/utils';
 import FileUpload from './components/FileUpload';
+import About from './components/About';
 import Playlists from './components/Playlists';
 import Tracklist from './components/Tracklist';
 import BlankingLayer from './components/BlankingLayer';
@@ -35,31 +36,8 @@ const App = () => {
 	return (
 		<main>
 			<h1 className='main__title'>iTunes library</h1>
-			<p>These are the playlists in my iTunes library.</p>
-			<p>
-				Once a week I upload an .xml export of my iTunes library to my server,
-				and the contents are stored in a database.
-			</p>
-			<p>
-				I used{' '}
-				<a href='http://expressjs.com/' target='_blank'>
-					express
-				</a>{' '}
-				to build a RESTful API which serves this data via endpoints. The
-				frontend was built in{' '}
-				<a href='https://reactjs.org/' target='_blank'>
-					reactjs
-				</a>
-				.
-			</p>
-			<p>
-				If you are interested, the code for both the frontend and backend are in
-				this repository{' '}
-				<a href='https://github.com/edickins/itunes_restfulapi' target='_blank'>
-					itunes_restfulAPI
-				</a>
-				.
-			</p>
+
+			<About />
 			{/* {<FileUpload />} */}
 			{playlists.length > 0 && (
 				<>
@@ -91,7 +69,6 @@ const App = () => {
 	}
 
 	function enableAppScrolling(allow) {
-		console.log(`enableScrolling ${allow}`);
 		const body = document.body;
 		if (allow === true) {
 			if (!body.classList.contains('noScrolling')) {
@@ -122,10 +99,10 @@ const App = () => {
 
 					const descriptionLimitedPlaylists = filteredPlaylists.map(
 						playlist => {
-							if (playlist.description.length > 350) {
+							/* if (playlist.description.length > 350) {
 								playlist.description = playlist.description.slice(0, 350);
 								playlist.description += ' [...]';
-							}
+							} */
 							return playlist;
 						}
 					);
