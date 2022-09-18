@@ -65,7 +65,7 @@ const Pagination = props => {
 					{middlePagination}
 					<a
 						href='javascript:void(0)'
-						className='btn pagination__next'
+						className='btn pagination__btn'
 						onClick={() => {
 							changePage(currentPage + 1);
 						}}

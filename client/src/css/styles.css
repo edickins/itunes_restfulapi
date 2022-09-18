@@ -34,7 +34,7 @@ main {
 /* typography */
 
 .main__title {
-	color: #363636;
+	color: #58508d;
 	text-align: center;
 }
 
@@ -138,13 +138,14 @@ main {
 
 	padding: 1em;
 	border-radius: 10px;
-	border: 2px solid #787878;
+	border: 2px solid #003f5c;
 
 	box-shadow: #848282 3px 3px 5px;
 	cursor: pointer;
 
-	transition-duration: 200ms;
+	transition-duration: 300ms;
 	transition-property: color, transform;
+	transition-timing-function: cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
 .playlists__btn:hover,
@@ -165,9 +166,11 @@ main {
 }
 
 .playlist__click-instruction {
-	justify-self: flex-end;
+	margin: 0 auto;
 	display: none;
+	justify-self: flex-end;
 	justify-content: center;
+	color: #fff;
 	text-align: center;
 }
 
@@ -191,10 +194,12 @@ main {
 }
 
 .tracklist__title {
+	color: #58508d;
 	margin: 0.5em 0;
 }
 
 .tracklist__stats {
+	color: #8a508f;
 	margin: 0.2em 0;
 }
 
@@ -280,16 +285,17 @@ main {
 }
 
 .artistName {
+	color: #58508d;
 	font-weight: 700;
 }
 
 .trackName {
 	font-weight: 700;
-	color: #f27405;
+	color: #8a508f;
 }
 
 .albumName {
-	color: #736002;
+	color: #bc5090;
 }
 
 /* buttons */
@@ -298,9 +304,10 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid #363636;
+
 	width: 30px;
 	height: 30px;
+	border-radius: 5px;
 	font-size: 1rem;
 	line-height: 1;
 }
@@ -322,19 +329,21 @@ a.btn {
 	margin: 0.5em 0;
 }
 
-.pagination__btn {
+a.pagination__btn {
 	margin-right: 0.5em;
+	border: 2px solid #58508d;
+	color: #58508d;
 }
 
 .btn:disabled {
-	background-color: rgba(100, 100, 100, 0.3);
+	background-color: #8a508f;
 	color: rgb(20, 20, 20);
 	cursor: not-allowed;
 }
 
 .btn.currentPage {
-	border: #f25c05 solid 2px;
-	background-color: rgba(100, 100, 100, 0.3);
+	border: #ffa600 solid 2px;
+	background-color: #ff6361;
 	color: #fff;
 }
 

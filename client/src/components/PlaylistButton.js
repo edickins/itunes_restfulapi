@@ -4,7 +4,14 @@ import TracklistDescription from './TracklistDescription';
 
 export default function PlaylistButton(props) {
 	const { name, playlistId, description } = props.playlist;
-	const colours = ['#736002', '#f0a967', '#e87f54', '#df5441'];
+	const colours = [
+		'#58508d',
+		'#8a508f',
+		'#bc5090',
+		'#de5a79',
+		'#ff6361',
+		'#ff8531',
+	];
 	const colourObj = getRandomColours(colours);
 	const styles = {
 		background: `linear-gradient(to bottom, ${colourObj[0]}, ${colourObj[1]})`,
