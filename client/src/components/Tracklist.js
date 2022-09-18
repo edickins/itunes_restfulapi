@@ -66,9 +66,14 @@ export default function Tracklist(props) {
 
 	return (
 		<div className={`tracklist ${tracklistIsOpen ? 'open' : ''}`}>
-			<button className='btn--close-tracklist' onClick={onCloseBtnClicked}>
-				&times;
-			</button>
+			<a
+				role='button'
+				href=''
+				className='btn tracklist__close_btn'
+				onClick={onCloseBtnClicked}
+			>
+				✖
+			</a>
 			<div className='tracklist__info'>
 				<h2 className='tracklist__title'>
 					Playlist name: {selectedTracklistName}

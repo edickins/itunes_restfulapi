@@ -12,7 +12,7 @@ const About = () => {
 								toggle(event);
 							}}
 							role='button'
-							href='#'
+							href='javascript:void(0)'
 						>
 							<p className='about__link'>about</p>
 						</a>

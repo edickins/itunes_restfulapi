@@ -4,7 +4,7 @@
 	"description": "express restfulAPI that facilitates converting an uploaded iTunes .xml library into a mongodb data store and then provides access to that data via a restfulAPI",
 	"main": "server.js",
 	"scripts": {
-		"start": "NODE_ENV=production server",
+		"start": "cross-env NODE_ENV=production server",
 		"dev": "nodemon server",
 		"debug": "nodemon --inspect server"
 	},
@@ -30,6 +30,7 @@
 		"morgan": "^1.10.0"
 	},
 	"devDependencies": {
+		"cross-env": "^7.0.3",
 		"nodemon": "^2.0.16"
 	}
 }
