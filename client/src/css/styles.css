@@ -66,7 +66,7 @@ main {
 	transition-duration: 300ms;
 	transition-property: opacity;
 
-	background-color: rgba(0, 0, 0, 0.95);
+	background-color: rgba(232, 232, 232, 0.95);
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -153,7 +153,7 @@ main {
 	color: #363636;
 	box-shadow: #848282 2px 2px 5px;
 
-	transform: scale(0.95);
+	transform: scale(0.98);
 }
 
 .playlist__name {
@@ -181,10 +181,13 @@ main {
 }
 
 /* tracklist */
+
+.tracklist {
+	color: #363636;
+}
+
 .tracklist__info {
 	font-size: 0.875rem;
-	font-weight: 300;
-	color: #fff;
 }
 
 .tracklist__title {
@@ -214,7 +217,6 @@ main {
 }
 
 .tracklist .tracklist__description {
-	color: #fff;
 }
 
 .tracklist__show_description {
@@ -273,7 +275,6 @@ main {
 
 /* trackItem */
 .trackDetails {
-	color: #fff;
 	font-size: 1.2rem;
 	margin-right: 0.5em;
 }
@@ -288,7 +289,7 @@ main {
 }
 
 .albumName {
-	color: #f2b705;
+	color: #736002;
 }
 
 /* buttons */
@@ -297,7 +298,7 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid #fff;
+	border: 1px solid #363636;
 	width: 30px;
 	height: 30px;
 	font-size: 1rem;
@@ -307,11 +308,11 @@ main {
 .btn:hover,
 .btn:focus {
 	background-color: #fff;
-	color: #000;
+	color: #363636;
 }
 
 a.btn {
-	color: #fff;
+	color: #363636;
 	text-decoration: none;
 }
 
@@ -339,5 +340,4 @@ a.btn {
 
 .pagination__pagecount {
 	margin: 0.5em 0;
-	color: #fff;
 }

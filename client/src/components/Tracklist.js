@@ -32,7 +32,7 @@ export default function Tracklist(props) {
 				if (response.data.success === true) {
 					setIsLoading(false);
 					const tracks = response.data.data;
-					setTracks(response.data.data);
+					setTracks(tracks);
 					setTotalPages(response.data.totalPages);
 					setSelectedTracklistName(response.data.playlistName);
 					setSelectedTracklistDescription(response.data.playlistDescription);
@@ -75,9 +75,7 @@ export default function Tracklist(props) {
 				✖
 			</a>
 			<div className='tracklist__info'>
-				<h2 className='tracklist__title'>
-					Playlist name: {selectedTracklistName}
-				</h2>
+				<h2 className='tracklist__title'>{selectedTracklistName}</h2>
 				<p className='tracklist__stats'>
 					<span className='tracklist__total-songs'>
 						total songs: {totalTracklistTracks}
