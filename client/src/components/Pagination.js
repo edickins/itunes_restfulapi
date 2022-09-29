@@ -25,9 +25,14 @@ const Pagination = props => {
 	} else {
 		const startValue = Math.floor((currentPage - 1) / 5) * 5;
 
+		console.log(`startValue ${startValue}`);
+
+		const buttonsRequired =
+			startValue + 5 < totalPages ? 5 : totalPages - startValue;
+
 		middlePagination = (
 			<>
-				{[...Array(5)].map((_, index) => (
+				{[...Array(buttonsRequired)].map((_, index) => (
 					<a
 						href='javascript:void(0)'
 						key={startValue + index + 1}
@@ -48,28 +53,32 @@ const Pagination = props => {
 		);
 	}
 
+	const prevPage = () => {
+		changePage(currentPage - 1);
+	};
+
+	const nextPage = () => {
+		changePage(currentPage + 1);
+	};
+
 	return (
 		totalPages > 1 && (
 			<>
 				<div className='pagination'>
 					<a
 						href='javascript:void(0)'
-						className='btn pagination__btn'
-						onClick={() => {
-							changePage(currentPage - 1);
-						}}
-						disabled={currentPage === 1}
+						className={`btn pagination__btn ${currentPage === 1 && 'disabled'}`}
+						onClick={currentPage > 1 ? prevPage : null}
 					>
 						&#171;
 					</a>
 					{middlePagination}
 					<a
 						href='javascript:void(0)'
-						className='btn pagination__btn'
-						onClick={() => {
-							changePage(currentPage + 1);
-						}}
-						disabled={currentPage === totalPages}
+						className={`btn pagination__btn ${
+							currentPage === totalPages && 'disabled'
+						}`}
+						onClick={currentPage < totalPages ? nextPage : null}
 					>
 						&#187;
 					</a>

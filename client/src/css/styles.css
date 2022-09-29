@@ -40,19 +40,23 @@ main {
 
 /* colours */
 .colour1 {
-	background-color: #736002;
+	/* background-color: #736002; */
+	background-color: #e1e4e8;
 }
 
 .colour2 {
-	background-color: #f0a967;
+	/* background-color: #f0a967; */
+	background-color: #939ca3;
 }
 
 .colour3 {
-	background-color: #e87f54;
+	/* background-color: #e87f54; */
+	background-color: #646f77;
 }
 
 .colour4 {
-	background-color: #df5441;
+	/* background-color: #df5441; */
+	background-color: #b5bdc4;
 }
 
 /* blanking layer */
@@ -133,12 +137,12 @@ main {
 	flex-direction: column;
 	justify-content: flex-start;
 	height: 100%;
-	color: #e8e8e8;
+	/* color: #e8e8e8; */
 	min-height: 230px;
 
 	padding: 1em;
 	border-radius: 10px;
-	border: 2px solid #003f5c;
+	border: 2px solid #48494a;
 
 	box-shadow: #848282 3px 3px 5px;
 	cursor: pointer;
@@ -194,12 +198,12 @@ main {
 }
 
 .tracklist__title {
-	color: #58508d;
+	color: #646f77;
 	margin: 0.5em 0;
 }
 
 .tracklist__stats {
-	color: #8a508f;
+	color: #939ca3;
 	margin: 0.2em 0;
 }
 
@@ -219,9 +223,6 @@ main {
 
 .showText .tracklist__description {
 	background-color: rgba(255, 255, 255, 0.3);
-}
-
-.tracklist .tracklist__description {
 }
 
 .tracklist__show_description {
@@ -285,17 +286,17 @@ main {
 }
 
 .artistName {
-	color: #58508d;
+	color: #646f77;
 	font-weight: 700;
 }
 
 .trackName {
 	font-weight: 700;
-	color: #8a508f;
+	color: #939ca3;
 }
 
 .albumName {
-	color: #bc5090;
+	color: #646f77;
 }
 
 /* buttons */
@@ -331,20 +332,20 @@ a.btn {
 
 a.pagination__btn {
 	margin-right: 0.5em;
-	border: 2px solid #58508d;
-	color: #58508d;
+	border: 2px solid #5e5d5f;
+	color: #646f77;
 }
 
-.btn:disabled {
-	background-color: #8a508f;
+.btn.disabled {
+	background-color: #939ca3;
 	color: rgb(20, 20, 20);
 	cursor: not-allowed;
 }
 
 .btn.currentPage {
-	border: #ffa600 solid 2px;
-	background-color: #ff6361;
-	color: #fff;
+	border: #ff3c00 solid 2px;
+	background-color: #e1e4e8;
+	color: #646f77;
 }
 
 .pagination__pagecount {
