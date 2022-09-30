@@ -68,7 +68,7 @@ export default function Tracklist(props) {
 		<div className={`tracklist ${tracklistIsOpen ? 'open' : ''}`}>
 			<a
 				role='button'
-				href=''
+				href='javascript:void(0)'
 				className='btn tracklist__close_btn'
 				onClick={onCloseBtnClicked}
 			>

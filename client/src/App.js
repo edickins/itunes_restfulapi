@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { filterPlaylists } from './utils/utils';
 import FileUpload from './components/FileUpload';
 import About from './components/About';
 import Playlists from './components/Playlists';
@@ -61,6 +60,7 @@ const App = () => {
 		setSelectedPlaylistId(null);
 	}
 
+	/* page scroll management */
 	function enableAppScrolling(allow) {
 		const body = document.body;
 		if (allow === true) {
@@ -75,29 +75,6 @@ const App = () => {
 			}
 		}
 	}
-
-	/* API calls */
-
-	/* async function getPlaylists() {
-		const baseURL = 'https://cdn.bleepbloop.net/itunes/api/v1/playlists';
-		setIsLoading(true);
-		try {
-			let response = await axios.get(baseURL);
-			if (response.data.success === true) {
-				if (response.data.data.length > 0) {
-					const playlists = response.data.data;
-					const filteredPlaylists = playlists.filter(playlist => {
-						return filterPlaylists(playlist);
-					});
-
-					setPlaylists(filteredPlaylists);
-					setIsLoading(false);
-				}
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	} */
 };
 
 export default App;
