@@ -7,6 +7,7 @@ import Tracklist from './components/Tracklist';
 import BlankingLayer from './components/BlankingLayer';
 import LoadingLayer from './components/LoadingLayer';
 import useGetPlaylists from './hooks/useGetPlaylists';
+import { isAutoPlaylist, isApplePlaylist, isMyPlaylist } from './utils/utils';
 import './css/styles.css';
 
 const App = () => {
@@ -20,6 +21,12 @@ const App = () => {
 		enableAppScrolling(isLoading || tracklistIsOpen);
 	}, [isLoading, tracklistIsOpen]);
 
+	function filterPlaylists(fn, isAllowed) {
+		return playlists.filter(playlist => {
+			return fn(playlist, isAllowed);
+		});
+	}
+
 	/* render */
 	return (
 		<main>
@@ -29,8 +36,19 @@ const App = () => {
 			{
 				<div>
 					<Playlists
-						playlists={playlists}
+						playlists={filterPlaylists(isAutoPlaylist, true)}
 						onPlaylistClicked={onPlaylistClicked}
+						title='Auto-generated Playlists'
+					/>
+					<Playlists
+						playlists={filterPlaylists(isMyPlaylist, false)}
+						onPlaylistClicked={onPlaylistClicked}
+						title='My Playlists'
+					/>
+					<Playlists
+						playlists={filterPlaylists(isApplePlaylist, true)}
+						onPlaylistClicked={onPlaylistClicked}
+						title='Apple Curated Playlists'
 					/>
 				</div>
 			}

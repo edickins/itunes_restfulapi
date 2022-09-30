@@ -3,7 +3,7 @@ import PlaylistButton from './PlaylistButton';
 import { nanoid } from 'nanoid';
 
 export default function Playlists(props) {
-	const playlists = props.playlists;
+	const { playlists, title } = props;
 	const [playlistsEls, setPlaylistsEls] = React.useState([]);
 
 	/* create Playlist Elements when playlists value is updated */
@@ -26,5 +26,10 @@ export default function Playlists(props) {
 		);
 	}, [props.onPlaylistClicked, playlists]);
 
-	return <div className='playlists'>{playlistsEls}</div>;
+	return (
+		<div>
+			<p className='playlist__title'>{title}</p>
+			<div className='playlists'>{playlistsEls}</div>
+		</div>
+	);
 }
