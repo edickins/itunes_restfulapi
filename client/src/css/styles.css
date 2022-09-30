@@ -125,9 +125,9 @@ main {
 	row-gap: 1em;
 	column-gap: 1em;
 	align-items: start;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	margin: 2em 0;
-	padding: 2.5em 1em 1em;
+	padding: 2.5em 0.5em 0.5em;
 	border: 2px solid #b5bdc4;
 	background-color: #e1e4e8;
 	border-radius: 10px;
@@ -179,9 +179,9 @@ main {
 	display: inline;
 	padding: 0.5em;
 	background-color: #fff;
-	font-size: 1.5rem;
+
 	margin: 0;
-	top: 2em;
+	top: 2.7em;
 	left: 1em;
 	border-radius: 10px;
 	border: 2px solid #b5bdc4;
@@ -228,7 +228,7 @@ main {
 
 .tracklist__description {
 	margin: 0.5em -10px;
-	padding: 10px;
+	padding: 5px;
 
 	cursor: pointer;
 
