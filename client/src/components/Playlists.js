@@ -8,7 +8,7 @@ export default function Playlists(props) {
 
 	/* create Playlist Elements when playlists value is updated */
 	React.useEffect(() => {
-		if (playlists.length === 0) return;
+		if (!playlists || playlists.length === 0) return;
 		setPlaylistsEls(
 			playlists.map(playlist => {
 				if (playlist.tracks.length > 0) {
@@ -24,7 +24,7 @@ export default function Playlists(props) {
 				}
 			})
 		);
-	}, [playlists, props.onPlaylistClicked]);
+	}, [props.onPlaylistClicked, playlists]);
 
 	return <div className='playlists'>{playlistsEls}</div>;
 }

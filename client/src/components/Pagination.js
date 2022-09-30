@@ -24,9 +24,6 @@ const Pagination = props => {
 		));
 	} else {
 		const startValue = Math.floor((currentPage - 1) / 5) * 5;
-
-		console.log(`startValue ${startValue}`);
-
 		const buttonsRequired =
 			startValue + 5 < totalPages ? 5 : totalPages - startValue;
 
