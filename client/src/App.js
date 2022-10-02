@@ -32,7 +32,7 @@ const App = () => {
 		<main>
 			<h1 className='main__title'>iTunes library</h1>
 			<About />
-			{/* {<FileUpload />} */}
+			{<FileUpload />}
 			{
 				<div>
 					<Playlists
